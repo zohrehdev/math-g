@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>توپ کسر 🏀 | ریاضی سوم دبستان</title>
+<style>
+:root{--navy:#0B4F7A;--sky:#BFE9FF;--teal:#26A69A;--orange:#FF8F00;--yellow:#FFD54F;--ok:#43A047;--bad:#E53935}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;font-family:Vazirmatn,Tahoma,"Segoe UI",sans-serif;color:var(--navy);user-select:none;-webkit-user-select:none}
+body{background:linear-gradient(#8fd8ff,#d9f3ff 55%,#cfe9d0);display:flex;justify-content:center}
+#app{width:100%;max-width:560px;height:100dvh;position:relative;display:flex;flex-direction:column;padding:8px 12px 34px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px}
+.pill{background:#fff;border-radius:22px;padding:5px 14px;font-weight:800;font-size:15px;box-shadow:0 3px 0 rgba(11,79,122,.18)}
+.pill.lv{background:var(--navy);color:var(--yellow)}
+.iconbtn{width:42px;height:42px;border-radius:50%;border:0;background:#fff;font-size:20px;box-shadow:0 3px 0 rgba(11,79,122,.18);cursor:pointer}
+.bar{height:10px;background:rgba(255,255,255,.7);border-radius:6px;margin:4px 2px 0;overflow:hidden}
+.bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--yellow));transition:width .4s}
+.hoopwrap{position:relative;height:clamp(70px,11dvh,110px);display:flex;justify-content:center;align-items:flex-end}
+#hoop{width:clamp(86px,14dvh,130px);height:auto;overflow:visible}
+#net{transform-origin:50% 0;transform-box:fill-box}
+.q{text-align:center;font-weight:900;font-size:clamp(17px,2.9dvh,22px);margin:2px 6px 6px;line-height:1.5}
+.panel{flex:1 1 auto;min-height:0;background:#e8f6ff;border:4px solid #fff;border-radius:26px;box-shadow:0 6px 0 rgba(11,79,122,.18);display:flex;align-items:center;justify-content:center;padding:10px;position:relative}
+.panel svg{max-height:100%;max-width:100%;height:auto;width:auto}
+.msg{min-height:58px;text-align:center;font-weight:800;font-size:15px;line-height:1.55;padding:6px 8px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.msg.ok{color:#2e7d32}.msg.bad{color:#c62828}.msg.hint{color:var(--navy)}
+.court{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px 4px 6px;background:linear-gradient(#e9c88f,#d6a96a);border-radius:22px;border:4px solid #fff;box-shadow:0 6px 0 rgba(11,79,122,.18)}
+.ball{position:relative;aspect-ratio:1;border:0;background:none;cursor:pointer;padding:0;transition:transform .15s}
+.ball:active{transform:scale(.93)}
+.ball svg{position:absolute;inset:0;width:100%;height:100%}
+.ball .lab{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.ball.off{opacity:.35;pointer-events:none;filter:grayscale(.6)}
+.ball.glow{filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 14px #ffeb3b)}
+.fr{display:inline-flex;flex-direction:column;align-items:center;line-height:1;font-weight:900;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.35);font-size:clamp(20px,4.6dvh,30px)}
+.fr i{display:block;width:1.25em;height:.12em;background:#fff;margin:.14em 0;border-radius:2px;box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.msg .fr{color:var(--navy);text-shadow:none;font-size:20px}.msg .fr i{background:var(--navy);box-shadow:none}
+.brand{position:absolute;left:0;right:0;bottom:6px;text-align:center;font:700 12px Tahoma,Arial,sans-serif;color:var(--navy);opacity:.75;direction:ltr;pointer-events:none}
+.next{display:none;margin:0 auto 4px;background:var(--orange);color:#fff;border:0;border-radius:24px;font:900 17px Vazirmatn,Tahoma;padding:8px 30px;box-shadow:0 5px 0 #b35f00;cursor:pointer}
+.screen{position:absolute;inset:0;background:linear-gradient(#8fd8ff,#e8f8ff 60%,#d7f2c8);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:14px;z-index:20}
+.screen h1{font-size:clamp(34px,7dvh,54px);font-weight:900;color:var(--yellow);-webkit-text-stroke:8px var(--navy);paint-order:stroke fill;text-shadow:0 8px 0 rgba(11,79,122,.3)}
+.screen p{font-size:17px;font-weight:700;line-height:1.8;max-width:420px}
+.big{background:var(--orange);color:#fff;border:0;border-radius:34px;font:900 24px Vazirmatn,Tahoma;padding:12px 44px;box-shadow:0 8px 0 #b35f00;cursor:pointer}
+.big:active{transform:translateY(4px);box-shadow:0 4px 0 #b35f00}
+.stars{font-size:54px;letter-spacing:6px}
+.tag{background:var(--navy);color:#fff;border-radius:20px;padding:6px 18px;font-weight:800;font-size:15px}
+.hidden{display:none!important}
+.fly{position:fixed;z-index:50;pointer-events:none}
+.shake{animation:shake .45s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+@keyframes net{0%{transform:scaleY(1)}40%{transform:scaleY(1.35)}100%{transform:scaleY(1)}}
+.conf{position:fixed;top:-20px;width:10px;height:14px;z-index:60;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="top">
+    <span class="pill lv" id="lvl">مرحله ۱</span>
+    <span class="pill" id="cnt">سؤال ۱ از ۱۰</span>
+    <button class="iconbtn" id="snd" aria-label="صدا">🔊</button>
+  </div>
+  <div class="bar"><div id="prog"></div></div>
+  <div class="hoopwrap">
+    <svg id="hoop" viewBox="0 0 120 90">
+      <rect x="22" y="2" width="76" height="52" rx="6" fill="#fff" stroke="#0B4F7A" stroke-width="4"/>
+      <rect x="44" y="24" width="32" height="24" fill="none" stroke="#E53935" stroke-width="3"/>
+      <ellipse cx="60" cy="56" rx="26" ry="6" fill="none" stroke="#FF5722" stroke-width="5"/>
+      <g id="net" stroke="#fff" stroke-width="2" fill="none" opacity=".95">
+        <path d="M36 58 L46 84 M48 60 L53 86 M60 62 L60 86 M72 60 L67 86 M84 58 L74 84"/>
+        <path d="M40 68 H80 M44 77 H76"/>
+      </g>
+    </svg>
+  </div>
+  <div class="q" id="qtext"></div>
+  <div class="panel" id="panel"></div>
+  <div class="msg" id="msg"></div>
+  <button class="next" id="next">ادامه ←</button>
+  <div class="court" id="court"></div>
+  <div class="brand">Instagram: @zohreh_falahpour</div>
+
+  <div class="screen" id="intro">
+    <h1>توپ کسر 🏀</h1>
+    <span class="tag">ریاضی سوم دبستان · فصل کسر</span>
+    <p>شکل را ببین، کسر درست را پیدا کن و توپ را بنداز توی سبد! 🎯<br>اشتباه کردی؟ نگران نباش، راهنمایی می‌گیری.</p>
+    <button class="big" id="start">شروع بازی</button>
+    <div class="brand" style="position:static;margin-top:6px">Instagram: @zohreh_falahpour</div>
+  </div>
+  <div class="screen hidden" id="mid">
+    <h1>مرحله ۲ 🥤</h1>
+    <span class="tag">لیوان‌ها</span>
+    <p>حالا لیوان‌ها را می‌بینی. حدس بزن مایع تقریباً چه کسری از لیوان است. به خط‌های وسط لیوان هم دقت کن!</p>
+    <button class="big" id="go2">برویم!</button>
+  </div>
+  <div class="screen hidden" id="end"></div>
+</div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const FA='۰۱۲۳۴۵۶۷۸۹';
+const fa=n=>String(n).replace(/\d/g,d=>FA[d]);
+const frac=(k,n)=>`<span class="fr"><b>${fa(k)}</b><i></i><b>${fa(n)}</b></span>`;
+const rnd=n=>Math.floor(Math.random()*n);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
+const same=(a,b)=>a[0]*b[1]===b[0]*a[1];
+
+/* ================= صدا (Web Audio) ================= */
+const AU={ctx:null,on:true,master:null,mus:null,timer:null,step:0,sec:null,
+  init(){ if(this.ctx) return; try{
+      const C=window.AudioContext||window.webkitAudioContext; this.ctx=new C();
+      this.master=this.ctx.createGain(); this.master.gain.value=.9; this.master.connect(this.ctx.destination);
+      this.mus=this.ctx.createGain(); this.mus.gain.value=.5; this.mus.connect(this.master);
+    }catch(e){ this.ctx=null } },
+  unlock(){ this.init(); if(this.ctx&&this.ctx.state!=='running') this.ctx.resume(); },
+  tone(f,t0,dur,type='sine',vol=.2,dest=null,slideTo=null){
+    if(!this.ctx||!this.on&&!dest) return; const c=this.ctx,o=c.createOscillator(),g=c.createGain();
+    o.type=type; o.frequency.setValueAtTime(f,t0); if(slideTo) o.frequency.exponentialRampToValueAtTime(slideTo,t0+dur);
+    g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(vol,t0+.015); g.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+    o.connect(g); g.connect(dest||this.master); o.start(t0); o.stop(t0+dur+.05); },
+  noise(t0,dur,vol=.15,hp=2500){
+    if(!this.ctx||!this.on) return; const c=this.ctx,n=Math.floor(c.sampleRate*dur),b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0);
+    for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*(1-i/n);
+    const s=c.createBufferSource(); s.buffer=b; const f=c.createBiquadFilter(); f.type='highpass'; f.frequency.value=hp;
+    const g=c.createGain(); g.gain.value=vol; s.connect(f); f.connect(g); g.connect(this.master); s.start(t0); },
+  m2f:m=>440*Math.pow(2,(m-69)/12),
+  sfx(name){ if(!this.ctx||!this.on) return; const t=this.ctx.currentTime;
+    if(name==='click') this.tone(660,t,.08,'triangle',.12);
+    if(name==='pick') this.tone(520,t,.1,'triangle',.15);
+    if(name==='good'){ [72,76,79,84].forEach((m,i)=>this.tone(this.m2f(m),t+i*.09,.28,'triangle',.2)); }
+    if(name==='swish'){ this.noise(t,.35,.22,3000); this.tone(900,t,.3,'sine',.06,null,300); }
+    if(name==='bad'){ this.tone(330,t,.35,'sawtooth',.09,null,140); this.tone(247,t+.05,.3,'sine',.12,null,120); }
+    if(name==='thump'){ this.tone(140,t,.15,'sine',.25,null,60); }
+    if(name==='level'){ [67,71,74,79,83].forEach((m,i)=>this.tone(this.m2f(m),t+i*.1,.4,'triangle',.18)); }
+    if(name==='win'){ [72,76,79,84,79,84,88].forEach((m,i)=>this.tone(this.m2f(m),t+i*.13,.45,'triangle',.2)); this.noise(t+.8,.6,.1,5000); }
+  },
+  SEC:{menu:{bpm:84,root:60,sc:[0,2,4,7,9],w:'triangle',v:.09,prob:.55},
+       l1:{bpm:116,root:62,sc:[0,2,4,7,9],w:'triangle',v:.1,prob:.75},
+       l2:{bpm:76,root:57,sc:[0,2,4,7,11],w:'sine',v:.12,prob:.5},
+       end:{bpm:96,root:64,sc:[0,2,4,7,9],w:'triangle',v:.1,prob:.7}},
+  play(sec){ if(!this.ctx) return; this.stop(); this.sec=this.SEC[sec]; this.step=0; this.next=this.ctx.currentTime+.1;
+    this.timer=setInterval(()=>this.sched(),100); },
+  stop(){ if(this.timer){clearInterval(this.timer);this.timer=null} },
+  sched(){ const s=this.sec; if(!s||!this.ctx) return; const dur=60/s.bpm/2;
+    while(this.next<this.ctx.currentTime+.35){
+      if(this.on){ const st=this.step%16, t=this.next;
+        if(st%8===0) this.tone(this.m2f(s.root-12+[0,5,7,0][(this.step/8|0)%4]),t,dur*7,'sine',s.v*1.4,this.mus);
+        if(st%4===2) this.tone(this.m2f(s.root+[0,4,7,4][(st/4|0)%4]),t,dur*2,'triangle',s.v*.5,this.mus);
+        if(Math.random()<s.prob){ const n=s.root+12+s.sc[rnd(s.sc.length)]+(Math.random()<.2?12:0);
+          this.tone(this.m2f(n),t,dur*1.8,s.w,s.v,this.mus); }
+      }
+      this.next+=dur; this.step++; } },
+  setOn(v){ this.on=v; if(!v&&this.mus) this.mus.gain.setTargetAtTime(0,this.ctx.currentTime,.05); else if(this.mus) this.mus.gain.setTargetAtTime(.5,this.ctx.currentTime,.05); }
+};
+['pointerup','touchend','click'].forEach(ev=>document.addEventListener(ev,()=>AU.unlock(),{passive:true}));
+$('#snd').onclick=()=>{ AU.unlock(); AU.setOn(!AU.on); $('#snd').textContent=AU.on?'🔊':'🔇'; };
+
+/* ================= شکل‌ها ================= */
+const COLOR='#26A69A', EMPTY='#ffffff', STROKE='#0B4F7A';
+function circleSVG(n,k){
+  const cx=100,cy=100,r=92; let parts='';
+  for(let i=0;i<n;i++){
+    const a0=-Math.PI/2+i*2*Math.PI/n, a1=-Math.PI/2+(i+1)*2*Math.PI/n;
+    const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);
+    const d=n===2?`M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1} L${cx} ${cy}Z`:`M${cx} ${cy} L${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}Z`;
+    parts+=`<path d="${d}" fill="${i<k?COLOR:EMPTY}" stroke="${STROKE}" stroke-width="3" stroke-linejoin="round"/>`;
+  }
+  return `<svg viewBox="0 0 200 200" style="width:min(100%,300px)">${parts}</svg>`;
+}
+const GRID={2:[2,1],3:[3,1],4:[2,2],6:[3,2],8:[4,2]};
+function rectSVG(n,k){
+  const [c,r]=GRID[n], W=240,H=r===1?110:150, w=W/c, h=H/r;
+  const idx=shuffle([...Array(n).keys()]).slice(0,k); let parts='';
+  for(let i=0;i<n;i++){ const x=(i%c)*w+4, y=Math.floor(i/c)*h+4;
+    parts+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${idx.includes(i)?COLOR:EMPTY}" stroke="${STROKE}" stroke-width="3"/>`; }
+  return `<svg viewBox="0 0 ${W+8} ${H+8}" style="width:min(100%,340px)">${parts}</svg>`;
+}
+/* ===== شکل‌های اضافه: مثلث، لوزی، مکعب (قسمت‌های کاملاً مساوی) ===== */
+const SH_NS='http://www.w3.org/2000/svg';
+function shMk(tag,attrs,parent){ const e=document.createElementNS(SH_NS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); if(parent) parent.appendChild(e); return e; }
+const SH_OK={circle:[2,3,4,5,6,8],rect:[2,3,4,5,6,8],tri:[2,3,4],dia:[2,4],cube:[3,4,6,8]};
+const SH_NAME={circle:'دایره',rect:'مستطیل',tri:'مثلث',dia:'لوزی',cube:'مکعب'};
+const shChoices=n=>Object.keys(SH_OK).filter(t=>SH_OK[t].includes(n));
+function polyShape(viewBox,polys,n,colored,color,onTap,rot){
+  const svg=shMk('svg',{viewBox}),cells=[];
+  polys.forEach((pts,i)=>{ const p=shMk('polygon',{points:pts.map(q=>q.join(',')).join(' '),fill:colored&&colored.has((i+rot)%n)?color:'#fff',stroke:'#4A148C','stroke-width':3,'stroke-linejoin':'round',class:onTap?'cell':'','data-i':i},svg);
+    if(onTap) p.addEventListener('click',()=>onTap(i,p)); cells.push(p); });
+  return {svg,cells};
+}
+function triShape(n,colored,color,onTap,rot=0){
+  const A=[110,10],B=[10,188],C=[210,188],mAB=[60,99],mAC=[160,99],mBC=[110,188],G=[110,129];
+  const P={2:[[A,B,mBC],[A,mBC,C]],3:[[A,B,G],[B,C,G],[C,A,G]],4:[[A,mAB,mAC],[mAB,B,mBC],[mAC,mBC,C],[mAB,mBC,mAC]]}[n];
+  return polyShape('0 0 220 198',P,n,colored,color,onTap,rot);
+}
+function diaShape(n,colored,color,onTap,rot=0){
+  const T=[120,6],R=[234,100],B=[120,194],L=[6,100],O=[120,100];
+  const P={2:[[T,L,B],[T,R,B]],4:[[T,R,O],[R,B,O],[B,L,O],[L,T,O]]}[n];
+  return polyShape('0 0 240 200',P,n,colored,color,onTap,rot);
+}
+function cubeShape(n,colored,color,onTap,rot=0){
+  const [c,r]={3:[3,1],4:[2,2],6:[3,2],8:[4,2]}[n], s=40,d=16,pitch=s+d+14, W=c*pitch+4, H=r*pitch+4;
+  const svg=shMk('svg',{viewBox:`0 0 ${W} ${H}`}),cells=[];
+  for(let i=0;i<n;i++){
+    const x=(i%c)*pitch+4, y=Math.floor(i/c)*pitch+d+4, g=shMk('g',{class:onTap?'cell':'','data-i':i},svg);
+    const on=colored&&colored.has((i+rot)%n), f=on?color:'#fff', st={stroke:'#4A148C','stroke-width':2.5,'stroke-linejoin':'round'};
+    const faces=[
+      shMk('polygon',Object.assign({points:`${x},${y} ${x+s},${y} ${x+s},${y+s} ${x},${y+s}`,fill:f},st),g),
+      shMk('polygon',Object.assign({points:`${x},${y} ${x+d},${y-d} ${x+s+d},${y-d} ${x+s},${y}`,fill:f},st),g),
+      shMk('polygon',Object.assign({points:`${x+s},${y} ${x+s+d},${y-d} ${x+s+d},${y+s-d} ${x+s},${y+s}`,fill:f},st),g)];
+    shMk('polygon',{points:`${x+1},${y-1} ${x+d},${y-d+1} ${x+s+d-1},${y-d+1} ${x+s-1},${y-1}`,fill:'#fff',opacity:.4,'pointer-events':'none'},g);
+    shMk('polygon',{points:`${x+s+1},${y+1} ${x+s+d-1},${y-d+1} ${x+s+d-1},${y+s-d-1} ${x+s+1},${y+s-1}`,fill:'#000',opacity:.2,'pointer-events':'none'},g);
+    const orig=g.setAttribute.bind(g); g.setAttribute=(k,v)=>{ if(k==='fill') faces.forEach(q=>q.setAttribute('fill',v)); else orig(k,v); };
+    if(onTap) g.addEventListener('click',()=>onTap(i,g)); cells.push(g);
+  }
+  return {svg,cells};
+}
+const CIRC=(n)=>circleSVG;
+function tmpl(t,n,k){ if(t==='circle') return circleSVG(n,k); if(t==='rect') return rectSVG(n,k);
+  const colored=new Set(shuffle([...Array(n).keys()]).slice(0,k));
+  const f={tri:triShape,dia:diaShape,cube:cubeShape}[t](n,colored,COLOR,null,0);
+  const w={tri:'min(100%,300px)',dia:'min(100%,320px)',cube:'min(100%,340px)'}[t];
+  f.svg.style.width=w; return f.svg.outerHTML; }
+function glassSVG(f,hintD){
+  const top=130-f*120, t=(top-10)/120, L=15+10*t, R=85-10*t;
+  let lines=''; if(hintD) for(let i=1;i<hintD;i++){ const y=130-i*120/hintD, tt=(y-10)/120;
+    lines+=`<line x1="${15+10*tt}" x2="${85-10*tt}" y1="${y}" y2="${y}" stroke="#0B4F7A" stroke-width="1.6" stroke-dasharray="4 3"/>`; }
+  return `<svg viewBox="0 0 100 140" style="height:100%;max-height:300px;width:auto">
+    <polygon points="${L},${top} ${R},${top} 75,130 25,130" fill="#FFA000"/>
+    <polygon points="${L},${top} ${R},${top} ${R-3},${top+4} ${L+3},${top+4}" fill="#FFC107"/>
+    <polygon points="15,10 85,10 75,130 25,130" fill="rgba(255,255,255,.35)" stroke="#0B4F7A" stroke-width="3" stroke-linejoin="round"/>${lines}</svg>`;
+}
+
+/* ================= سؤال‌ها ================= */
+const TIERS=[[2,4],[3,4],[3,4,6],[4,6],[6,8],[6,8]];  /* مخرج‌های مجاز هر سؤال: از آسان به سخت */
+const GL=[[1,2],[1,4],[3,4],[1,3],[2,3]];
+function distractors(k,n){
+  const c=[k,n], list=[];
+  const add=(a,b,type)=>{ if(a<1||b<2||a>=b) return; const v=[a,b];
+    if(same(v,c)||list.some(x=>same(x.v,v))) return; list.push({v,type}); };
+  add(n-k,n,'comp'); add(k,n-k,'ratio'); add(k+1,n,'num'); add(k-1,n,'num'); add(k,n+1,'den'); add(k,n-1,'den');
+  [[1,2],[1,3],[1,4],[2,3],[3,4],[1,8],[3,8],[5,6]].forEach(v=>{ if(list.length<6) add(v[0],v[1],'den'); });
+  return list;
+}
+function build(){
+  const Q=[], used=new Set();
+  TIERS.forEach(t=>{
+    let n,k,key,tries=0;
+    do{ n=t[rnd(t.length)]; k=1+rnd(n-1); key=n+'_'+k; tries++; }while(used.has(key)&&tries<30);
+    used.add(key); Q.push({lv:1,type:(a=>a[rnd(a.length)])(shChoices(n)),n,k});
+  });
+  const gl=shuffle(GL).slice(0,4).sort((a,b)=>a[1]-b[1]);
+  gl.forEach(([k,n])=>Q.push({lv:2,type:'glass',n,k,f:k/n+(Math.random()-.5)*.05}));
+  return Q;
+}
+
+/* ================= بازی ================= */
+let Qs,qi,score,first,wrongCount,locked,optsData,mistakes;
+const court=$('#court'),msg=$('#msg'),panel=$('#panel');
+function ballSVG(){ return `<svg viewBox="0 0 100 100"><defs><radialGradient id="bg" cx="35%" cy="30%"><stop offset="0" stop-color="#FFB74D"/><stop offset="1" stop-color="#E65100"/></radialGradient></defs>
+<circle cx="50" cy="50" r="46" fill="url(#bg)" stroke="#5D2A00" stroke-width="3"/>
+<path d="M50 4V96M4 50H96" stroke="#5D2A00" stroke-width="2.4" fill="none"/>
+<path d="M14 18Q38 50 14 82M86 18Q62 50 86 82" stroke="#5D2A00" stroke-width="2.4" fill="none"/></svg>`; }
+function show(id){ ['intro','mid','end'].forEach(s=>$('#'+s).classList.toggle('hidden',s!==id)); }
+function startGame(){
+  Qs=build(); qi=0; score=0; mistakes={comp:0,ratio:0,num:0,den:0,other:0}; show('none'); AU.play('l1'); load();
+}
+function load(){
+  const q=Qs[qi]; locked=false; wrongCount=0; first=true;
+  $('#lvl').textContent=q.lv===1?'مرحله ۱ · شکل‌ها':'مرحله ۲ · لیوان‌ها';
+  $('#cnt').textContent=`سؤال ${fa(qi+1)} از ${fa(Qs.length)}`;
+  $('#prog').style.width=(qi/Qs.length*100)+'%';
+  $('#qtext').textContent=q.lv===1?'چه کسری از شکل رنگ شده است؟':'به‌طور تقریبی چه کسری از لیوان پر شده است؟';
+  panel.innerHTML=q.type==='glass'?glassSVG(q.f,0):tmpl(q.type,q.n,q.k);
+  msg.className='msg hint'; msg.textContent='توپ درست را انتخاب کن 👇'; $('#next').style.display='none';
+  let ds;
+  if(q.lv===1){ ds=shuffle(distractors(q.k,q.n)); const pri=['comp','ratio','num','den']; ds.sort((a,b)=>pri.indexOf(a.type)-pri.indexOf(b.type)); ds=ds.slice(0,3); }
+  else { const pool=shuffle(GL.filter(v=>!same(v,[q.k,q.n]))).slice(0,3); ds=pool.map(v=>({v,type:'other'})); }
+  optsData=shuffle([{v:[q.k,q.n],type:'right'},...ds]);
+  court.innerHTML=''; optsData.forEach((o,i)=>{ const b=document.createElement('button'); b.className='ball'; b.dataset.i=i;
+    b.innerHTML=ballSVG()+`<div class="lab">${frac(o.v[0],o.v[1])}</div>`; b.onclick=()=>pick(i,b); court.appendChild(b); });
+  window.__dbg={q,optsData};
+}
+function hintText(q,o){
+  if(q.lv===1){
+    const base={comp:'این کسر قسمت‌های <b>بدون رنگ</b> را نشان می‌دهد. ما قسمت‌های رنگی را می‌خواهیم.',
+      ratio:'مخرج کسر باید تعداد <b>همه‌ی</b> قسمت‌های مساوی باشد، نه فقط قسمت‌های بدون رنگ.',
+      num:'تعداد قسمت‌های رنگی را دوباره بشمار.',den:'همه‌ی قسمت‌های مساوی شکل را دوباره بشمار.'}[o.type];
+    return base||'دوباره نگاه کن.';
+  }
+  return 'به وسط لیوان نگاه کن. مایع تقریباً تا کجا رسیده؟ 🤔';
+}
+function reveal(q){
+  const right=optsData.findIndex(o=>o.type==='right');
+  [...court.children].forEach((b,i)=>{ b.classList.toggle('glow',i===right); if(i!==right) b.classList.add('off'); });
+  if(q.lv===1) msg.innerHTML=`جواب درست: ${frac(q.k,q.n)} — شکل ${fa(q.n)} قسمت مساوی دارد و ${fa(q.k)} قسمت رنگی است.`;
+  else { msg.innerHTML=`جواب درست: ${frac(q.k,q.n)} — لیوان را به ${fa(q.n)} قسمت مساوی تقسیم کن.`; panel.innerHTML=glassSVG(q.f,q.n); }
+  msg.className='msg hint'; $('#next').style.display='block';
+}
+function pick(i,btn){
+  if(locked) return; const q=Qs[qi],o=optsData[i]; AU.sfx('pick');
+  if(o.type==='right'){ locked=true; if(first) score++; shoot(btn,q); return; }
+  /* اشتباه */
+  first=false; wrongCount++; mistakes[o.type]=(mistakes[o.type]||0)+1;
+  AU.sfx('bad'); btn.classList.add('shake','off'); setTimeout(()=>btn.classList.remove('shake'),460);
+  if(wrongCount===1){ msg.className='msg bad'; msg.innerHTML='دوباره فکر کن 🙂 '+hintText(q,o); if(q.lv===2) panel.innerHTML=glassSVG(q.f,0); }
+  else { locked=true; reveal(q); }
+}
+function shoot(btn,q){
+  const hoop=$('#hoop').getBoundingClientRect(), b=btn.getBoundingClientRect();
+  const fly=btn.cloneNode(true); fly.classList.add('fly'); fly.style.cssText=`left:${b.left}px;top:${b.top}px;width:${b.width}px;height:${b.height}px`; document.body.appendChild(fly);
+  btn.style.visibility='hidden';
+  const dx=hoop.left+hoop.width/2-(b.left+b.width/2), dy=hoop.top+hoop.height*.62-(b.top+b.height/2);
+  AU.sfx('thump');
+  const anim=fly.animate([{transform:'translate(0,0) scale(1)'},{transform:`translate(${dx*.5}px,${dy-90}px) scale(.7)`,offset:.55},{transform:`translate(${dx}px,${dy}px) scale(.38)`}],{duration:750,easing:'cubic-bezier(.3,.1,.5,1)'});
+  anim.onfinish=()=>{ fly.animate([{transform:`translate(${dx}px,${dy}px) scale(.38)`,opacity:1},{transform:`translate(${dx}px,${dy+60}px) scale(.3)`,opacity:0}],{duration:300,fill:'forwards'}).onfinish=()=>fly.remove();
+    $('#net').style.animation='none'; void $('#net').offsetWidth; $('#net').style.animation='net .5s';
+    AU.sfx('swish'); AU.sfx('good'); confetti(14);
+    msg.className='msg ok'; msg.innerHTML=(first?'آفرین! 🎉 ':'درست شد! 👏 ')+frac(q.k,q.n);
+    setTimeout(advance,1500); };
+}
+function advance(){
+  qi++; $('#prog').style.width=(qi/Qs.length*100)+'%';
+  if(qi>=Qs.length) return finish();
+  if(Qs[qi].lv===2&&Qs[qi-1].lv===1){ AU.sfx('level'); AU.play('l2'); show('mid'); return; }
+  load();
+}
+$('#next').onclick=()=>{ AU.sfx('click'); advance(); };
+$('#go2').onclick=()=>{ AU.sfx('click'); show('none'); load(); };
+$('#start').onclick=()=>{ AU.unlock(); AU.sfx('click'); startGame(); };
+function finish(){
+  AU.play('end'); AU.sfx('win'); confetti(50);
+  const st=score>=9?3:score>=6?2:1;
+  let tip='';
+  const top=Object.entries(mistakes).sort((a,b)=>b[1]-a[1])[0];
+  if(top&&top[1]>0){ tip={comp:'بیشتر قسمت‌های بدون رنگ را شمردی. یادت باشد صورت = قسمت‌های رنگی.',ratio:'مخرج را با قسمت‌های بدون رنگ ساختی. مخرج = تعداد همه‌ی قسمت‌های مساوی.',num:'بیشتر در شمردن قسمت‌های رنگی دقت کن.',den:'همه‌ی قسمت‌ها را با دقت بشمار.',other:'برای لیوان، اول آن را به قسمت‌های مساوی تقسیم کن.'}[top[0]]; }
+  const e=$('#end'); e.innerHTML=`<h1>آفرین! 🏆</h1><div class="stars">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div>
+    <span class="tag">${fa(score)} جواب درست از ${fa(Qs.length)} در تلاش اول</span>
+    <p><b>یادآوری:</b> مخرج = تعداد همه‌ی قسمت‌های مساوی<br>صورت = تعداد قسمت‌های رنگی${tip?'<br><br>'+tip:''}</p>
+    <button class="big" id="again">دوباره بازی کن</button>
+    <p style="font-size:15px">ساخته‌شده با ❤️ — Instagram: <span dir="ltr">@zohreh_falahpour</span></p>`;
+  show('end'); $('#again').onclick=()=>{ AU.sfx('click'); startGame(); };
+}
+function confetti(n){ const cols=['#FFD54F','#FF8F00','#26A69A','#29B6F6','#EC407A'];
+  for(let i=0;i<n;i++){ const d=document.createElement('div'); d.className='conf'; d.style.left=Math.random()*100+'vw'; d.style.background=cols[rnd(cols.length)];
+    document.body.appendChild(d); d.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:`translateY(${innerHeight+40}px) rotate(${360+rnd(360)}deg)`,opacity:.8}],{duration:1400+rnd(900),easing:'ease-in'}).onfinish=()=>d.remove(); } }
+/* موسیقی منو بعد از اولین لمس */
+document.addEventListener('pointerup',function f(){ if(AU.ctx&&!AU.timer){ AU.play('menu'); } },{once:true});
+</script>
+</body>
+</html>

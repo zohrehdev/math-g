@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>ربات‌ساز کسری 🤖 | ریاضی سوم دبستان</title>
+<style>
+:root{--ink:#4A148C;--pink:#F06292;--yellow:#FFD54F;--cream:#FFF8E1;--ok:#2E7D32;--bad:#C62828;--wood:#A1662F}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;font-family:Vazirmatn,Tahoma,"Segoe UI",sans-serif;color:var(--ink);user-select:none;-webkit-user-select:none;touch-action:manipulation}
+body{background:radial-gradient(circle at 20% 10%,#fff 0,transparent 40%),linear-gradient(#FCE4EC,#FFF3E0 55%,#E1F5FE);display:flex;justify-content:center}
+#app{width:100%;max-width:560px;height:100dvh;position:relative;display:flex;flex-direction:column;padding:8px 12px 32px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px}
+.pill{background:#fff;border-radius:22px;padding:5px 14px;font-weight:800;font-size:15px;box-shadow:0 3px 0 rgba(74,20,140,.18)}
+.pill.lv{background:var(--ink);color:var(--yellow)}
+.iconbtn{width:42px;height:42px;border-radius:50%;border:0;background:#fff;font-size:20px;box-shadow:0 3px 0 rgba(74,20,140,.18);cursor:pointer}
+.bar{height:12px;background:rgba(255,255,255,.8);border-radius:8px;margin:4px 2px 6px;overflow:hidden;border:2px solid #fff}
+.bar>div{height:100%;width:0;background:linear-gradient(90deg,#EF5350,#FFA726,#FFEE58,#66BB6A,#42A5F5,#AB47BC);transition:width .45s}
+.q{flex:none;text-align:center;font-weight:900;font-size:clamp(17px,2.8dvh,22px);margin:2px 6px 6px;line-height:1.55;min-height:2.4em;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px}
+.easel{flex:1 1 auto;min-height:0;background:#fff;border:10px solid var(--wood);border-radius:18px;box-shadow:0 8px 0 rgba(0,0,0,.18),inset 0 0 0 3px #d9a56a;display:flex;align-items:center;justify-content:center;padding:8px;position:relative;overflow:hidden}
+.easel svg{max-height:100%;max-width:100%}
+.mrow{display:flex;align-items:center;gap:8px;margin:8px 0 4px;min-height:74px}
+#mas{width:68px;height:68px;flex:none}
+.bubble{flex:1;background:#fff;border-radius:18px;padding:8px 12px;font-weight:800;font-size:15px;line-height:1.55;box-shadow:0 3px 0 rgba(74,20,140,.16);position:relative;min-height:54px;display:flex;align-items:center}
+.bubble:before{content:"";position:absolute;right:-8px;top:22px;border:8px solid transparent;border-left-color:#fff;border-right:0}
+.bubble.ok{color:var(--ok)}.bubble.bad{color:var(--bad)}
+.ctrl{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:4px 0}
+.btn{border:0;border-radius:24px;font:900 17px Vazirmatn,Tahoma;padding:9px 26px;cursor:pointer;color:#fff;background:var(--pink);box-shadow:0 5px 0 #ad1457}
+.btn.sec{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(74,20,140,.25)}
+.btn.go{background:#43A047;box-shadow:0 5px 0 #1b5e20}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.fr{display:inline-flex;flex-direction:column;align-items:center;line-height:1;font-weight:900;vertical-align:middle}
+.fr i{display:block;width:1.3em;height:.11em;background:currentColor;margin:.14em 0;border-radius:2px}
+.big .fr{font-size:34px;background:#fff;border-radius:14px;padding:6px 14px;box-shadow:0 3px 0 rgba(74,20,140,.2);color:#C2185B}
+.pt{touch-action:none;cursor:pointer}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:2px 0 6px}
+.chip{background:#fff;border:3px solid #fff;border-radius:20px;padding:5px 12px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 3px 0 rgba(74,20,140,.2);display:flex;align-items:center;gap:6px}
+.chip.sel{border-color:var(--ink);transform:translateY(-2px)}
+.chip .dot{width:18px;height:18px;border-radius:50%;border:2px solid rgba(0,0,0,.25)}
+.opt{width:74px;height:74px;border-radius:50%;border:0;background:radial-gradient(circle at 35% 30%,#fff,#F8BBD0);box-shadow:0 5px 0 #ad1457,inset 0 0 0 4px #fff;cursor:pointer;color:var(--ink);font-size:24px;display:flex;align-items:center;justify-content:center}
+.opt.off{opacity:.35;pointer-events:none}
+.opt.glow{box-shadow:0 0 0 5px #fff,0 0 18px 8px #FFEB3B}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;width:100%;height:100%;grid-template-rows:repeat(3,minmax(0,1fr));align-content:stretch;justify-items:center}
+.card{background:#fff8e1;border:4px solid #fff;border-radius:16px;box-shadow:0 4px 0 rgba(74,20,140,.25);padding:6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;width:min(100%,150px);height:100%;min-height:0;overflow:hidden}
+.card svg{flex:1 1 0;min-height:0;width:100%;height:100%;max-height:none}
+.card.sel{border-color:var(--ink);transform:scale(1.05)}
+.card.done{border-color:#43A047;background:#E8F5E9;pointer-events:none}
+.card .lbl{flex:none;height:24px;font-size:17px;display:flex;align-items:center;color:var(--ok)}
+.card .lbl .fr{font-size:15px}
+.brand{position:absolute;left:0;right:0;bottom:6px;text-align:center;font:700 12px Tahoma,Arial,sans-serif;color:var(--ink);opacity:.7;direction:ltr;pointer-events:none}
+.screen{position:absolute;inset:0;background:radial-gradient(circle at 25% 15%,#fff 0,transparent 45%),linear-gradient(#F8BBD0,#FFF3E0 60%,#B3E5FC);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:14px;z-index:20}
+.screen h1{font-size:clamp(34px,7dvh,54px);font-weight:900;color:var(--yellow);-webkit-text-stroke:8px var(--ink);paint-order:stroke fill;text-shadow:0 8px 0 rgba(74,20,140,.3)}
+.screen p{font-size:17px;font-weight:700;line-height:1.8;max-width:430px}
+.tag{background:var(--ink);color:#fff;border-radius:20px;padding:6px 18px;font-weight:800;font-size:15px}
+.hero{display:flex;gap:10px;align-items:center;justify-content:center}
+.stars{font-size:54px;letter-spacing:6px}
+.hidden{display:none!important}
+.shake{animation:shake .45s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-12px)}}
+.bounce{animation:bounce .6s}
+@keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.2);opacity:1}100%{transform:scale(1);opacity:1}}
+.stamp{position:absolute;font-size:92px;z-index:5;animation:pop .6s forwards;pointer-events:none;filter:drop-shadow(0 4px 0 rgba(0,0,0,.2))}
+.conf{position:fixed;top:-20px;width:10px;height:14px;z-index:60;pointer-events:none}
+.opt.wide{width:auto;min-width:140px;height:62px;border-radius:34px;padding:0 20px;font-size:21px;font-weight:800;font-family:inherit}
+.cmpwrap{display:flex;gap:12px;align-items:stretch;justify-content:center;width:100%;height:100%;padding:8px;box-sizing:border-box}
+.cmpcard{flex:1;background:#F3E5F5;border:4px solid #7E57C2;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--ink);font-weight:800}
+.cmpcard.win{background:#C8E6C9;border-color:#2E7D32}
+.cmpcard .em{font-size:44px}.cmpcard .nm{font-size:18px}.cmpcard .ln{font-size:22px;text-align:center;line-height:1.5}.cmpcard small{font-size:14px;font-weight:700}
+.cell{cursor:pointer;transition:fill .15s}
+.easel{align-items:center;justify-content:center}
+#msg .fr,#qtext .fr:not(.big .fr){display:inline-flex;vertical-align:middle;margin:0 3px;font-size:.8em}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="top">
+    <span class="pill lv" id="lvl">مرحله ۱</span>
+    <span class="pill" id="cnt">سؤال ۱ از ۱۴</span>
+    <button class="iconbtn" id="snd" aria-label="صدا">🔊</button>
+  </div>
+  <div class="bar"><div id="prog"></div></div>
+  <div class="q" id="qtext"></div>
+  <div class="easel" id="easel"></div>
+  <div class="mrow">
+    <svg id="mas" viewBox="0 0 100 100">
+      <line x1="50" y1="5" x2="50" y2="17" stroke="#607D8B" stroke-width="3"/><circle cx="50" cy="6" r="5" fill="#E53935"/>
+      <rect x="16" y="17" width="68" height="60" rx="14" fill="#CFD8DC" stroke="#546E7A" stroke-width="3.5"/>
+      <rect x="8" y="36" width="8" height="22" rx="4" fill="#E53935"/><rect x="84" y="36" width="8" height="22" rx="4" fill="#E53935"/>
+      <circle cx="36" cy="42" r="9" fill="#fff" stroke="#546E7A" stroke-width="2"/><circle cx="64" cy="42" r="9" fill="#fff" stroke="#546E7A" stroke-width="2"/>
+      <circle cx="37" cy="43" r="4.5" fill="#FFB300"/><circle cx="65" cy="43" r="4.5" fill="#FFB300"/>
+      <circle cx="26" cy="60" r="3.5" fill="#FF8A80" opacity=".8"/><circle cx="74" cy="60" r="3.5" fill="#FF8A80" opacity=".8"/>
+      <path id="mouth" d="M42 66 L58 66" stroke="#4A148C" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+      <rect x="30" y="80" width="40" height="16" rx="6" fill="#90A4AE" stroke="#546E7A" stroke-width="3"/>
+    </svg>
+    <div class="bubble" id="msg"></div>
+  </div>
+  <div class="ctrl" id="ctrl"></div>
+  <div class="brand">Instagram: @zohreh_falahpour</div>
+
+  <div class="screen" id="intro">
+    <h1>ربات‌ساز کسری 🤖</h1>
+    <span class="tag">ریاضی سوم دبستان · فصل کسر</span>
+    <p>قطعه‌های رنگی ربات را بردار و سر جایشان بگذار!<br>هر بخش ربات چند قسمت <b>مساوی</b> دارد. بشمار و تکه‌ی درست را پیدا کن.<br>هر بار یک ربات تازه می‌سازی.</p>
+    <button class="btn" id="start" style="font-size:24px;padding:12px 44px">شروع بازی</button>
+    <div class="brand" style="position:static;margin-top:6px">Instagram: @zohreh_falahpour</div>
+  </div>
+  <div class="screen hidden" id="mid"></div>
+  <div class="screen hidden" id="end"></div>
+</div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const FA='۰۱۲۳۴۵۶۷۸۹'; const fa=n=>String(n).replace(/\d/g,d=>FA[d]);
+const frac=(k,n)=>`<span class="fr"><b>${fa(k)}</b><i></i><b>${fa(n)}</b></span>`;
+const rnd=n=>Math.floor(Math.random()*n);
+const pick=a=>a[rnd(a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
+const same=(a,b)=>a[0]*b[1]===b[0]*a[1];
+
+/* ================= صدا ================= */
+const AU={ctx:null,on:true,master:null,mus:null,timer:null,step:0,sec:null,next:0,
+  init(){ if(this.ctx) return; try{ const C=window.AudioContext||window.webkitAudioContext; this.ctx=new C();
+      this.master=this.ctx.createGain(); this.master.gain.value=.9; this.master.connect(this.ctx.destination);
+      this.mus=this.ctx.createGain(); this.mus.gain.value=.5; this.mus.connect(this.master); }catch(e){this.ctx=null} },
+  unlock(){ this.init(); if(this.ctx&&this.ctx.state!=='running') this.ctx.resume(); },
+  m2f:m=>440*Math.pow(2,(m-69)/12),
+  tone(f,t0,dur,type='sine',vol=.2,dest=null,slideTo=null){
+    if(!this.ctx||(!this.on&&!dest)) return; const c=this.ctx,o=c.createOscillator(),g=c.createGain();
+    o.type=type; o.frequency.setValueAtTime(f,t0); if(slideTo) o.frequency.exponentialRampToValueAtTime(slideTo,t0+dur);
+    g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(vol,t0+.012); g.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+    o.connect(g); g.connect(dest||this.master); o.start(t0); o.stop(t0+dur+.05); },
+  sfx(name,x=0){ if(!this.ctx||!this.on) return; const t=this.ctx.currentTime;
+    if(name==='click') this.tone(660,t,.07,'triangle',.12);
+    if(name==='hop'){ this.tone(this.m2f(67+x*2),t,.16,'triangle',.2); this.tone(this.m2f(79+x*2),t+.03,.1,'sine',.07); }
+    if(name==='place'){ this.tone(520,t,.1,'triangle',.16,null,780); }
+    if(name==='good') [72,76,79,84].forEach((m,i)=>this.tone(this.m2f(m),t+i*.09,.3,'triangle',.2));
+    if(name==='match'){ this.tone(this.m2f(76),t,.15,'triangle',.2); this.tone(this.m2f(83),t+.1,.25,'triangle',.2); }
+    if(name==='bad'){ this.tone(330,t,.35,'sawtooth',.08,null,140); this.tone(247,t+.05,.3,'sine',.12,null,120); }
+    if(name==='level') [67,71,74,79,83].forEach((m,i)=>this.tone(this.m2f(m),t+i*.1,.4,'triangle',.18));
+    if(name==='win') [72,76,79,84,79,84,88].forEach((m,i)=>this.tone(this.m2f(m),t+i*.13,.45,'triangle',.2)); },
+  SEC:{menu:{bpm:84,root:60,sc:[0,2,4,7,9],w:'sine',v:.1,prob:.5},
+       l1:{bpm:112,root:67,sc:[0,2,4,7,9],w:'triangle',v:.1,prob:.72},
+       l2:{bpm:98,root:62,sc:[0,2,4,6,9],w:'triangle',v:.1,prob:.62},
+       l3:{bpm:80,root:58,sc:[0,3,5,7,10],w:'sine',v:.12,prob:.5},
+       end:{bpm:104,root:64,sc:[0,2,4,7,9],w:'triangle',v:.1,prob:.7}},
+  play(sec){ if(!this.ctx) return; this.stop(); this.sec=this.SEC[sec]; this.step=0; this.next=this.ctx.currentTime+.1; this.timer=setInterval(()=>this.sched(),100); },
+  stop(){ if(this.timer){clearInterval(this.timer);this.timer=null} },
+  sched(){ const s=this.sec; if(!s||!this.ctx) return; const dur=60/s.bpm/2;
+    while(this.next<this.ctx.currentTime+.35){
+      if(this.on){ const st=this.step%16,t=this.next;
+        if(st%8===0) this.tone(this.m2f(s.root-12+[0,5,7,0][(this.step/8|0)%4]),t,dur*7,'sine',s.v*1.4,this.mus);
+        if(st%4===2) this.tone(this.m2f(s.root+[0,4,7,4][(st/4|0)%4]),t,dur*2,'triangle',s.v*.5,this.mus);
+        if(Math.random()<s.prob){ const n=s.root+12+s.sc[rnd(s.sc.length)]+(Math.random()<.2?12:0); this.tone(this.m2f(n),t,dur*1.8,s.w,s.v,this.mus); } }
+      this.next+=dur; this.step++; } },
+  setOn(v){ this.on=v; if(this.mus) this.mus.gain.setTargetAtTime(v?.5:0,this.ctx.currentTime,.05); }
+};
+['pointerup','touchend','click'].forEach(ev=>document.addEventListener(ev,()=>AU.unlock(),{passive:true}));
+$('#snd').onclick=()=>{ AU.unlock(); AU.setOn(!AU.on); $('#snd').textContent=AU.on?'🔊':'🔇'; };
+
+
+/* ================= حلزون ================= */
+function face(m){ const p=$('#mouth');
+  p.setAttribute('d',m==='happy'?'M40 64 Q50 76 60 64':m==='sad'?'M41 72 Q50 62 59 72':m==='wow'?'M45 66 Q50 78 55 66 Q50 60 45 66':'M42 68 L58 68');
+  const mas=$('#mas'); mas.classList.remove('bounce'); void mas.getBoundingClientRect(); if(m==='happy'||m==='wow') mas.classList.add('bounce'); }
+function say(t,cls='',f='think'){ const b=$('#msg'); b.className='bubble '+cls; b.innerHTML=t; face(f); }
+
+/* ================= شکل‌ها ================= */
+/* ===== شکل‌ها ===== */
+let TOK=0;
+const PAL=['#26A69A','#EC407A','#FFA726','#5C6BC0','#66BB6A','#AB47BC','#29B6F6','#EF5350'];
+const GRID={2:[2,1],3:[3,1],4:[2,2],5:[5,1],6:[3,2],8:[4,2]};
+const NS='http://www.w3.org/2000/svg';
+function mk(tag,attrs,parent){ const e=document.createElementNS(NS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); if(parent) parent.appendChild(e); return e; }
+const easel=$('#easel'),ctrl=$('#ctrl');
+function show(id){ ['intro','mid','end'].forEach(s=>$('#'+s).classList.toggle('hidden',s!==id)); }
+const COLS=['#EC407A','#FFA726','#FDD835','#66BB6A','#29B6F6','#AB47BC','#EF5350','#26A69A'];
+const PARTS=[{id:'head',name:'سر ربات',pool:[2,3,4]},{id:'chest',name:'سینه‌ی ربات',pool:[4,5,6,8]},{id:'belt',name:'کمربند ربات',pool:[6,8,10]},{id:'feet',name:'کفش‌های ربات',pool:[2,3,4]}];
+let R,sel,placed,total,mist,locked,tries,SL;
+function newRobot(){
+  let ok,t=0,ds; do{ ds=PARTS.map(p=>pick(p.pool)); ok=new Set(ds).size===4; t++; }while(!ok&&t<500);
+  const used=new Set(ds), pool=[2,3,4,5,6,8,10,12].filter(x=>!used.has(x)), dec=shuffle(pool).slice(0,2);
+  const cols=shuffle(COLS); const all=[...ds,...dec];
+  const col={}; all.forEach((d,i)=>col[d]=cols[i]);
+  return {ds,dec,col,types:shuffle(all)};
+}
+const fr=(cx,cy,n,sz,g)=>{ const st={'text-anchor':'middle','font-weight':900,'font-size':sz,fill:'#212121','pointer-events':'none'};
+  const a=mk('text',Object.assign({x:cx,y:cy-sz*.12},st),g); a.textContent=fa(1);
+  mk('line',{x1:cx-sz*.5,x2:cx+sz*.5,y1:cy+sz*.1,y2:cy+sz*.1,stroke:'#212121','stroke-width':sz*.1,'pointer-events':'none'},g);
+  const b=mk('text',Object.assign({x:cx,y:cy+sz*1.05},st),g); b.textContent=fa(n); };
+function slot(g,shape,n,i,info){ // shape element already created; attach behaviour
+  const el=info.el; el.setAttribute('class','slot'); el.dataset.n=n; el.dataset.i=i;
+  el.addEventListener('click',()=>tapSlot(info)); SL.push(info); }
+function buildRobot(){
+  easel.innerHTML=''; SL=[]; const svg=mk('svg',{viewBox:'0 0 300 520'}); svg.style.cssText='width:auto;height:100%;max-width:100%;display:block;margin:auto';
+  const g0=mk('g',{},svg);
+  // decor
+  mk('line',{x1:150,y1:38,x2:150,y2:22,stroke:'#607D8B','stroke-width':4},g0); mk('circle',{cx:150,cy:14,r:12,fill:'#E53935',stroke:'#212121','stroke-width':2.5},g0);
+  mk('rect',{x:128,y:140,width:44,height:20,fill:'#B0BEC5',stroke:'#546E7A','stroke-width':2.5},g0);
+  mk('path',{d:'M85 205 L40 250',stroke:'#90A4AE','stroke-width':12,'stroke-linecap':'round'},g0);
+  mk('path',{d:'M215 205 L260 250',stroke:'#90A4AE','stroke-width':12,'stroke-linecap':'round'},g0);
+  mk('circle',{cx:38,cy:254,r:13,fill:'#FFB300',stroke:'#E65100','stroke-width':3},g0); mk('circle',{cx:262,cy:254,r:13,fill:'#FFB300',stroke:'#E65100','stroke-width':3},g0);
+  [[100,345],[170,345]].forEach(([x,y])=>{ mk('rect',{x,y,width:30,height:100,fill:'#9FA8DA',stroke:'#546E7A','stroke-width':2.5},g0); for(let k=0;k<3;k++) mk('rect',{x,y:y+18+k*26,width:30,height:8,fill:'#5C6BC0'},g0); });
+  const [dh,dc,db,df]=R.ds; const lay=mk('g',{},svg);
+  const addSlot=(el,n,cx,cy,sz,part)=>{ const info={el,n,cx,cy,sz,part,done:false}; slot(lay,null,n,SL.length,info); };
+  // head
+  { const x0=80,y0=44,w=140,h=100,sw=w/dh; for(let i=0;i<dh;i++){ const el=mk('rect',{x:x0+i*sw,y:y0,width:sw,height:h,rx:i===0||i===dh-1?6:0},lay); addSlot(el,dh,x0+(i+.5)*sw,y0+h-26,Math.min(15,sw*.42),'head'); } }
+  // chest
+  { const cx=150,cy=230,r=72; for(let i=0;i<dc;i++){ const a0=-Math.PI/2+i*2*Math.PI/dc,a1=-Math.PI/2+(i+1)*2*Math.PI/dc,am=(a0+a1)/2;
+      const el=mk('path',{d:`M${cx} ${cy} L${cx+r*Math.cos(a0)} ${cy+r*Math.sin(a0)} A${r} ${r} 0 0 1 ${cx+r*Math.cos(a1)} ${cy+r*Math.sin(a1)}Z`},lay);
+      addSlot(el,dc,cx+r*.62*Math.cos(am),cy+r*.62*Math.sin(am)-4,dc>=8?10:13,'chest'); } }
+  // belt
+  { const x0=50,y0=312,w=200,h=40,sw=w/db; for(let i=0;i<db;i++){ const el=mk('rect',{x:x0+i*sw,y:y0,width:sw,height:h},lay); addSlot(el,db,x0+(i+.5)*sw,y0+h*.42,Math.min(11,sw*.5),'belt'); } }
+  // feet
+  [[50,100],[150,100]].forEach(([x0,w])=>{ const y0=450,h=54,sw=w/df; for(let i=0;i<df;i++){ const el=mk('rect',{x:x0+i*sw,y:y0,width:sw,height:h,rx:i===0||i===df-1?10:0},lay); addSlot(el,df,x0+(i+.5)*sw,y0+h*.4,Math.min(13,sw*.42),'feet'); } });
+  // face
+  const fg=mk('g',{'pointer-events':'none'},svg);
+  [[116,76],[184,76]].forEach(([x,y])=>{ mk('circle',{cx:x,cy:y,r:15,fill:'#fff',stroke:'#212121','stroke-width':3},fg); mk('circle',{cx:x+1,cy:y+1,r:7,fill:'#212121'},fg); mk('circle',{cx:x+3,cy:y-2,r:2.5,fill:'#fff'},fg); });
+  mk('path',{d:'M132 108 Q150 122 168 108',stroke:'#212121','stroke-width':3.5,fill:'none','stroke-linecap':'round'},fg);
+  mk('circle',{cx:100,cy:102,r:6,fill:'#FF8A80',opacity:.8},fg); mk('circle',{cx:200,cy:102,r:6,fill:'#FF8A80',opacity:.8},fg);
+  SL.forEach(s=>{ s.el.setAttribute('fill','#fff'); s.el.setAttribute('fill-opacity','.55'); s.el.setAttribute('stroke','#37474F'); s.el.setAttribute('stroke-width',2.5); s.el.setAttribute('stroke-dasharray','5 4'); s.el.setAttribute('stroke-linejoin','round'); s.el.style.cursor='pointer'; s.lay=lay; });
+  easel.appendChild(svg); R.svg=svg;
+  R.names={}; PARTS.forEach((p,i)=>R.names[R.ds[i]]=p.name);
+}
+function tray(){ ctrl.innerHTML=''; R.types.forEach(d=>{ const need=SL.filter(s=>s.n===d).length; const b=document.createElement('button'); b.className='opt'; b.dataset.d=d;
+  b.style.cssText=`background:${R.col[d]};position:relative;color:#212121`; b.innerHTML=`<span class="fr"><b>${fa(1)}</b><i></i><b>${fa(d)}</b></span>${need?`<small style="position:absolute;top:-6px;left:-4px;background:#4A148C;color:#fff;border-radius:12px;padding:1px 7px;font:800 13px Vazirmatn,Tahoma">×${fa(need)}</small>`:''}`;
+  b.onclick=()=>{ if(locked) return; AU.sfx('click'); sel=d; [...ctrl.children].forEach(x=>x.classList.toggle('glow',x===b)); say(`قطعه‌ی ${frac(1,d)} را برداشتی. حالا روی جایش در ربات بزن 👆`,'','think'); }; ctrl.appendChild(b); }); }
+function tapSlot(s){
+  if(locked||s.done) return;
+  if(sel==null){ say('اول از پایین یک قطعه انتخاب کن 👇','bad','think'); return; }
+  if(sel===s.n){ s.done=true; placed++; AU.sfx('place'); s.el.setAttribute('fill',R.col[sel]); s.el.setAttribute('fill-opacity','1'); s.el.setAttribute('stroke-dasharray','0'); s.el.setAttribute('stroke','#37474F'); s.el.setAttribute('stroke-width',2.5);
+    const g=mk('g',{},s.lay); fr(s.cx,s.cy,s.n,s.sz,g); tries=0;
+    const left=SL.filter(x=>x.n===s.n&&!x.done).length; const b=[...ctrl.children].find(x=>+x.dataset.d===s.n); const sm=b&&b.querySelector('small'); if(sm) sm.textContent='×'+fa(left);
+    if(!left){ if(b){ b.classList.add('off'); b.classList.remove('glow'); } sel=null; AU.sfx('good'); say(`${R.names[s.n]} کامل شد! ${fa(s.n)} تکه‌ی ${frac(1,s.n)} = یک کامل 🎉`,'ok','happy'); }
+    else say(`درست! ${fa(left)} قسمت دیگر از ${R.names[s.n]} خالی است.`,'ok','happy');
+    $('#prog').style.width=(placed/total*100)+'%'; if(placed===total) setTimeout(finish,900);
+  } else {
+    AU.sfx('bad'); const e=s.el; e.classList.add('shake'); setTimeout(()=>e.classList.remove('shake'),460); mist++; tries++;
+    const cnt=SL.filter(x=>x.part===s.part&&(x.part!=='feet'||Math.abs(x.cx-s.cx)<200)).length;
+    say(sel>s.n?`این قسمت‌ها بزرگ‌ترند! ${frac(1,sel)} کوچک‌تر از قسمت‌هایی است که اینجا هست. قسمت‌ها را بشمار.`:`این قسمت‌ها کوچک‌ترند! تکه‌ی ${frac(1,sel)} برای اینجا بزرگ است. قسمت‌ها را بشمار.`,'bad','think');
+    if(tries>=3){ say(`راهنما: اینجا ${fa(s.n)} قسمت مساوی است. تکه‌ی ${frac(1,s.n)} را بردار.`,'','think'); const b=[...ctrl.children].find(x=>+x.dataset.d===s.n); if(b){ b.classList.add('glow'); } }
+  }
+}
+function startGame(){ R=newRobot(); sel=null; placed=0; mist=0; tries=0; locked=false; total=0; show('none'); AU.play('l1');
+  buildRobot(); total=SL.length; tray(); $('#lvl').textContent='ربات را بساز'; $('#cnt').textContent=`${fa(total)} تکه`; $('#prog').style.width='0%';
+  $('#qtext').innerHTML='قطعه‌ی درست را بردار، بعد جایش را در ربات پیدا کن 🔧';
+  say('قسمت‌های هر بخش مساوی‌اند. بشمار و تکه‌ی درست را بگذار!','','think'); window.__dbg={R,SL,tapSlot,get sel(){return sel},set sel(v){sel=v}}; }
+const ROBOT_END=`<svg viewBox="0 0 120 130" style="width:150px;height:150px" class="bounce"><line x1="60" y1="6" x2="60" y2="18" stroke="#607D8B" stroke-width="3"/><circle cx="60" cy="6" r="5" fill="#E53935"/><rect x="26" y="18" width="68" height="48" rx="12" fill="#CFD8DC" stroke="#546E7A" stroke-width="3.5"/><circle cx="46" cy="38" r="8" fill="#fff" stroke="#546E7A" stroke-width="2"/><circle cx="74" cy="38" r="8" fill="#fff" stroke="#546E7A" stroke-width="2"/><circle cx="47" cy="39" r="4" fill="#FFB300"/><circle cx="75" cy="39" r="4" fill="#FFB300"/><path d="M48 54 Q60 64 72 54" stroke="#4A148C" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="34" y="70" width="52" height="40" rx="8" fill="#90A4AE" stroke="#546E7A" stroke-width="3"/><circle cx="60" cy="90" r="12" fill="#FFEB3B" stroke="#F9A825" stroke-width="3"/><rect x="40" y="112" width="14" height="14" rx="4" fill="#546E7A"/><rect x="66" y="112" width="14" height="14" rx="4" fill="#546E7A"/></svg>`;
+function finish(){ locked=true; AU.play('end'); AU.sfx('win'); confetti(50); $('#prog').style.width='100%'; const st=mist<=2?3:mist<=7?2:1;
+  $('#end').innerHTML=`<h1>ربات ساخته شد! 🤖</h1>${ROBOT_END}<div class="stars">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div><span class="tag">${fa(mist)} اشتباه</span>
+   <p><b>یادآوری:</b> وقتی کل به قسمت‌های مساوی تقسیم شود، هر قسمت یک کسر است.<br>تکه‌ی ${frac(1,R.ds[1])} کوچک‌تر از ${frac(1,R.ds[0])} است چون قسمت‌ها بیشترند.</p>
+   <button class="btn" id="again" style="font-size:22px;padding:11px 40px">ربات جدید بساز</button>
+   <p style="font-size:15px">Instagram: <span dir="ltr">@zohreh_falahpour</span></p>`;
+  show('end'); $('#again').onclick=()=>{ AU.sfx('click'); startGame(); }; }
+function confetti(n){ const cols=['#FFD54F','#EC407A','#26A69A','#29B6F6','#AB47BC'];
+  for(let i=0;i<n;i++){ const d=document.createElement('div'); d.className='conf'; d.style.left=Math.random()*100+'vw'; d.style.background=pick(cols); document.body.appendChild(d);
+    d.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:`translateY(${innerHeight+40}px) rotate(${360+rnd(360)}deg)`,opacity:.8}],{duration:1400+rnd(900),easing:'ease-in'}).onfinish=()=>d.remove(); } }
+$('#start').onclick=()=>{ AU.unlock(); AU.sfx('click'); startGame(); };
+document.addEventListener('pointerup',()=>{ if(AU.ctx&&!AU.timer) AU.play('menu'); },{once:true});
+</script>
+</body>
+</html>

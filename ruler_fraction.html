@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>خط‌کش کسری 📏 | ریاضی سوم دبستان</title>
+<style>
+:root{--ink:#4A148C;--pink:#F06292;--yellow:#FFD54F;--cream:#FFF8E1;--ok:#2E7D32;--bad:#C62828;--wood:#A1662F}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;font-family:Vazirmatn,Tahoma,"Segoe UI",sans-serif;color:var(--ink);user-select:none;-webkit-user-select:none;touch-action:manipulation}
+body{background:radial-gradient(circle at 20% 10%,#fff 0,transparent 40%),linear-gradient(#FCE4EC,#FFF3E0 55%,#E1F5FE);display:flex;justify-content:center}
+#app{width:100%;max-width:560px;height:100dvh;position:relative;display:flex;flex-direction:column;padding:8px 12px 32px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px}
+.pill{background:#fff;border-radius:22px;padding:5px 14px;font-weight:800;font-size:15px;box-shadow:0 3px 0 rgba(74,20,140,.18)}
+.pill.lv{background:var(--ink);color:var(--yellow)}
+.iconbtn{width:42px;height:42px;border-radius:50%;border:0;background:#fff;font-size:20px;box-shadow:0 3px 0 rgba(74,20,140,.18);cursor:pointer}
+.bar{height:12px;background:rgba(255,255,255,.8);border-radius:8px;margin:4px 2px 6px;overflow:hidden;border:2px solid #fff}
+.bar>div{height:100%;width:0;background:linear-gradient(90deg,#EF5350,#FFA726,#FFEE58,#66BB6A,#42A5F5,#AB47BC);transition:width .45s}
+.q{flex:none;text-align:center;font-weight:900;font-size:clamp(17px,2.8dvh,22px);margin:2px 6px 6px;line-height:1.55;min-height:2.4em;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px}
+.easel{flex:1 1 auto;min-height:0;background:#fff;border:10px solid var(--wood);border-radius:18px;box-shadow:0 8px 0 rgba(0,0,0,.18),inset 0 0 0 3px #d9a56a;display:flex;align-items:center;justify-content:center;padding:8px;position:relative;overflow:hidden}
+.easel svg{max-height:100%;max-width:100%}
+.mrow{display:flex;align-items:center;gap:8px;margin:8px 0 4px;min-height:74px}
+#mas{width:68px;height:68px;flex:none}
+.bubble{flex:1;background:#fff;border-radius:18px;padding:8px 12px;font-weight:800;font-size:15px;line-height:1.55;box-shadow:0 3px 0 rgba(74,20,140,.16);position:relative;min-height:54px;display:flex;align-items:center}
+.bubble:before{content:"";position:absolute;right:-8px;top:22px;border:8px solid transparent;border-left-color:#fff;border-right:0}
+.bubble.ok{color:var(--ok)}.bubble.bad{color:var(--bad)}
+.ctrl{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:4px 0}
+.btn{border:0;border-radius:24px;font:900 17px Vazirmatn,Tahoma;padding:9px 26px;cursor:pointer;color:#fff;background:var(--pink);box-shadow:0 5px 0 #ad1457}
+.btn.sec{background:#fff;color:var(--ink);box-shadow:0 5px 0 rgba(74,20,140,.25)}
+.btn.go{background:#43A047;box-shadow:0 5px 0 #1b5e20}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.fr{display:inline-flex;flex-direction:column;align-items:center;line-height:1;font-weight:900;vertical-align:middle}
+.fr i{display:block;width:1.3em;height:.11em;background:currentColor;margin:.14em 0;border-radius:2px}
+.big .fr{font-size:34px;background:#fff;border-radius:14px;padding:6px 14px;box-shadow:0 3px 0 rgba(74,20,140,.2);color:#C2185B}
+.pt{touch-action:none;cursor:pointer}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:2px 0 6px}
+.chip{background:#fff;border:3px solid #fff;border-radius:20px;padding:5px 12px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 3px 0 rgba(74,20,140,.2);display:flex;align-items:center;gap:6px}
+.chip.sel{border-color:var(--ink);transform:translateY(-2px)}
+.chip .dot{width:18px;height:18px;border-radius:50%;border:2px solid rgba(0,0,0,.25)}
+.opt{width:74px;height:74px;border-radius:50%;border:0;background:radial-gradient(circle at 35% 30%,#fff,#F8BBD0);box-shadow:0 5px 0 #ad1457,inset 0 0 0 4px #fff;cursor:pointer;color:var(--ink);font-size:24px;display:flex;align-items:center;justify-content:center}
+.opt.off{opacity:.35;pointer-events:none}
+.opt.glow{box-shadow:0 0 0 5px #fff,0 0 18px 8px #FFEB3B}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;width:100%;height:100%;grid-template-rows:repeat(3,minmax(0,1fr));align-content:stretch;justify-items:center}
+.card{background:#fff8e1;border:4px solid #fff;border-radius:16px;box-shadow:0 4px 0 rgba(74,20,140,.25);padding:6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;width:min(100%,150px);height:100%;min-height:0;overflow:hidden}
+.card svg{flex:1 1 0;min-height:0;width:100%;height:100%;max-height:none}
+.card.sel{border-color:var(--ink);transform:scale(1.05)}
+.card.done{border-color:#43A047;background:#E8F5E9;pointer-events:none}
+.card .lbl{flex:none;height:24px;font-size:17px;display:flex;align-items:center;color:var(--ok)}
+.card .lbl .fr{font-size:15px}
+.brand{position:absolute;left:0;right:0;bottom:6px;text-align:center;font:700 12px Tahoma,Arial,sans-serif;color:var(--ink);opacity:.7;direction:ltr;pointer-events:none}
+.screen{position:absolute;inset:0;background:radial-gradient(circle at 25% 15%,#fff 0,transparent 45%),linear-gradient(#F8BBD0,#FFF3E0 60%,#B3E5FC);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:14px;z-index:20}
+.screen h1{font-size:clamp(34px,7dvh,54px);font-weight:900;color:var(--yellow);-webkit-text-stroke:8px var(--ink);paint-order:stroke fill;text-shadow:0 8px 0 rgba(74,20,140,.3)}
+.screen p{font-size:17px;font-weight:700;line-height:1.8;max-width:430px}
+.tag{background:var(--ink);color:#fff;border-radius:20px;padding:6px 18px;font-weight:800;font-size:15px}
+.hero{display:flex;gap:10px;align-items:center;justify-content:center}
+.stars{font-size:54px;letter-spacing:6px}
+.hidden{display:none!important}
+.shake{animation:shake .45s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-12px)}}
+.bounce{animation:bounce .6s}
+@keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.2);opacity:1}100%{transform:scale(1);opacity:1}}
+.stamp{position:absolute;font-size:92px;z-index:5;animation:pop .6s forwards;pointer-events:none;filter:drop-shadow(0 4px 0 rgba(0,0,0,.2))}
+.conf{position:fixed;top:-20px;width:10px;height:14px;z-index:60;pointer-events:none}
+.opt.wide{width:auto;min-width:140px;height:62px;border-radius:34px;padding:0 20px;font-size:21px;font-weight:800;font-family:inherit}
+.cmpwrap{display:flex;gap:12px;align-items:stretch;justify-content:center;width:100%;height:100%;padding:8px;box-sizing:border-box}
+.cmpcard{flex:1;background:#F3E5F5;border:4px solid #7E57C2;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--ink);font-weight:800}
+.cmpcard.win{background:#C8E6C9;border-color:#2E7D32}
+.cmpcard .em{font-size:44px}.cmpcard .nm{font-size:18px}.cmpcard .ln{font-size:22px;text-align:center;line-height:1.5}.cmpcard small{font-size:14px;font-weight:700}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="top">
+    <span class="pill lv" id="lvl">مرحله ۱</span>
+    <span class="pill" id="cnt">سؤال ۱ از ۱۴</span>
+    <button class="iconbtn" id="snd" aria-label="صدا">🔊</button>
+  </div>
+  <div class="bar"><div id="prog"></div></div>
+  <div class="q" id="qtext"></div>
+  <div class="easel" id="easel"></div>
+  <div class="mrow">
+    <svg id="mas" viewBox="0 0 100 100">
+      <rect x="26" y="4" width="48" height="92" rx="9" fill="#FFEB3B" stroke="#F9A825" stroke-width="3.5"/>
+      <g stroke="#5D4037" stroke-width="2" stroke-linecap="round"><line x1="26" y1="14" x2="40" y2="14"/><line x1="26" y1="22" x2="34" y2="22"/><line x1="26" y1="30" x2="34" y2="30"/><line x1="26" y1="38" x2="34" y2="38"/><line x1="26" y1="46" x2="40" y2="46"/><line x1="26" y1="54" x2="34" y2="54"/><line x1="26" y1="62" x2="34" y2="62"/><line x1="26" y1="70" x2="34" y2="70"/><line x1="26" y1="78" x2="40" y2="78"/><line x1="26" y1="86" x2="34" y2="86"/></g>
+      <circle cx="46" cy="36" r="7" fill="#fff"/><circle cx="62" cy="36" r="7" fill="#fff"/><circle cx="47" cy="37" r="3.4" fill="#222"/><circle cx="61" cy="37" r="3.4" fill="#222"/>
+      <circle cx="42" cy="56" r="3.8" fill="#FF8A80" opacity=".85"/><circle cx="66" cy="56" r="3.8" fill="#FF8A80" opacity=".85"/>
+      <path id="mouth" d="M46 58 L58 58" stroke="#4A148C" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="bubble" id="msg"></div>
+  </div>
+  <div class="ctrl" id="ctrl"></div>
+  <div class="brand">Instagram: @zohreh_falahpour</div>
+
+  <div class="screen" id="intro">
+    <h1>خط‌کش کسری 📏</h1>
+    <span class="tag">ریاضی سوم دبستان · فصل کسر</span>
+    <p>طول مداد و خودکار را با <b>خط‌کش</b> بخوان!<br>بین دو عدد کامل، یک سانتی‌متر <b>۱۰ قسمت</b> دارد (۱۰ میلی‌متر).<br>اشتباه کردی؟ نگران نباش، خط‌کش راهنمایی می‌کند.</p>
+    <button class="btn" id="start" style="font-size:24px;padding:12px 44px">شروع بازی</button>
+    <div class="brand" style="position:static;margin-top:6px">Instagram: @zohreh_falahpour</div>
+  </div>
+  <div class="screen hidden" id="mid"></div>
+  <div class="screen hidden" id="end"></div>
+</div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const FA='۰۱۲۳۴۵۶۷۸۹'; const fa=n=>String(n).replace(/\d/g,d=>FA[d]);
+const frac=(k,n)=>`<span class="fr"><b>${fa(k)}</b><i></i><b>${fa(n)}</b></span>`;
+const rnd=n=>Math.floor(Math.random()*n);
+const pick=a=>a[rnd(a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
+const same=(a,b)=>a[0]*b[1]===b[0]*a[1];
+
+/* ================= صدا ================= */
+const AU={ctx:null,on:true,master:null,mus:null,timer:null,step:0,sec:null,next:0,
+  init(){ if(this.ctx) return; try{ const C=window.AudioContext||window.webkitAudioContext; this.ctx=new C();
+      this.master=this.ctx.createGain(); this.master.gain.value=.9; this.master.connect(this.ctx.destination);
+      this.mus=this.ctx.createGain(); this.mus.gain.value=.5; this.mus.connect(this.master); }catch(e){this.ctx=null} },
+  unlock(){ this.init(); if(this.ctx&&this.ctx.state!=='running') this.ctx.resume(); },
+  m2f:m=>440*Math.pow(2,(m-69)/12),
+  tone(f,t0,dur,type='sine',vol=.2,dest=null,slideTo=null){
+    if(!this.ctx||(!this.on&&!dest)) return; const c=this.ctx,o=c.createOscillator(),g=c.createGain();
+    o.type=type; o.frequency.setValueAtTime(f,t0); if(slideTo) o.frequency.exponentialRampToValueAtTime(slideTo,t0+dur);
+    g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(vol,t0+.012); g.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+    o.connect(g); g.connect(dest||this.master); o.start(t0); o.stop(t0+dur+.05); },
+  sfx(name,x=0){ if(!this.ctx||!this.on) return; const t=this.ctx.currentTime;
+    if(name==='click') this.tone(660,t,.07,'triangle',.12);
+    if(name==='hop'){ this.tone(this.m2f(67+x*2),t,.16,'triangle',.2); this.tone(this.m2f(79+x*2),t+.03,.1,'sine',.07); }
+    if(name==='place'){ this.tone(520,t,.1,'triangle',.16,null,780); }
+    if(name==='good') [72,76,79,84].forEach((m,i)=>this.tone(this.m2f(m),t+i*.09,.3,'triangle',.2));
+    if(name==='match'){ this.tone(this.m2f(76),t,.15,'triangle',.2); this.tone(this.m2f(83),t+.1,.25,'triangle',.2); }
+    if(name==='bad'){ this.tone(330,t,.35,'sawtooth',.08,null,140); this.tone(247,t+.05,.3,'sine',.12,null,120); }
+    if(name==='level') [67,71,74,79,83].forEach((m,i)=>this.tone(this.m2f(m),t+i*.1,.4,'triangle',.18));
+    if(name==='win') [72,76,79,84,79,84,88].forEach((m,i)=>this.tone(this.m2f(m),t+i*.13,.45,'triangle',.2)); },
+  SEC:{menu:{bpm:84,root:60,sc:[0,2,4,7,9],w:'sine',v:.1,prob:.5},
+       l1:{bpm:112,root:67,sc:[0,2,4,7,9],w:'triangle',v:.1,prob:.72},
+       l2:{bpm:98,root:62,sc:[0,2,4,6,9],w:'triangle',v:.1,prob:.62},
+       l3:{bpm:80,root:58,sc:[0,3,5,7,10],w:'sine',v:.12,prob:.5},
+       end:{bpm:104,root:64,sc:[0,2,4,7,9],w:'triangle',v:.1,prob:.7}},
+  play(sec){ if(!this.ctx) return; this.stop(); this.sec=this.SEC[sec]; this.step=0; this.next=this.ctx.currentTime+.1; this.timer=setInterval(()=>this.sched(),100); },
+  stop(){ if(this.timer){clearInterval(this.timer);this.timer=null} },
+  sched(){ const s=this.sec; if(!s||!this.ctx) return; const dur=60/s.bpm/2;
+    while(this.next<this.ctx.currentTime+.35){
+      if(this.on){ const st=this.step%16,t=this.next;
+        if(st%8===0) this.tone(this.m2f(s.root-12+[0,5,7,0][(this.step/8|0)%4]),t,dur*7,'sine',s.v*1.4,this.mus);
+        if(st%4===2) this.tone(this.m2f(s.root+[0,4,7,4][(st/4|0)%4]),t,dur*2,'triangle',s.v*.5,this.mus);
+        if(Math.random()<s.prob){ const n=s.root+12+s.sc[rnd(s.sc.length)]+(Math.random()<.2?12:0); this.tone(this.m2f(n),t,dur*1.8,s.w,s.v,this.mus); } }
+      this.next+=dur; this.step++; } },
+  setOn(v){ this.on=v; if(this.mus) this.mus.gain.setTargetAtTime(v?.5:0,this.ctx.currentTime,.05); }
+};
+['pointerup','touchend','click'].forEach(ev=>document.addEventListener(ev,()=>AU.unlock(),{passive:true}));
+$('#snd').onclick=()=>{ AU.unlock(); AU.setOn(!AU.on); $('#snd').textContent=AU.on?'🔊':'🔇'; };
+
+
+/* ================= حلزون ================= */
+function face(m){ const p=$('#mouth');
+  p.setAttribute('d',m==='happy'?'M44 56 Q52 68 60 56':m==='sad'?'M45 64 Q52 54 59 64':m==='wow'?'M47 58 Q52 70 57 58 Q52 52 47 58':'M46 58 L58 58');
+  const mas=$('#mas'); mas.classList.remove('bounce'); void mas.getBoundingClientRect(); if(m==='happy'||m==='wow') mas.classList.add('bounce'); }
+function say(t,cls='',f='think'){ const b=$('#msg'); b.className='bubble '+cls; b.innerHTML=t; face(f); }
+
+/* ================= شکل‌ها ================= */
+const NS='http://www.w3.org/2000/svg';
+function mk(tag,attrs,parent){ const e=document.createElementNS(NS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); if(parent) parent.appendChild(e); return e; }
+function txt(svg,x,y,s,size,fill,extra={}){ const t=mk('text',Object.assign({x,y,'font-size':size,'font-weight':900,fill,'text-anchor':'middle','font-family':'Vazirmatn,Tahoma,sans-serif'},extra),svg); t.textContent=s; return t; }
+const X0=34,L=288;
+const xAt=(i,n)=>X0+L*i/n;
+let TOK=0;
+/* شماره‌گذاری قسمت‌ها یکی‌یکی (برای نشان‌دادن شمردن) */
+function mark(svg,n,from,to,yc,color){ const tk=TOK; let i=from;
+  const t=setInterval(()=>{ if(tk!==TOK||i>=to){ clearInterval(t); return; }
+    const P=svg.__g||svg, cx=xAt(i+.5,n); mk('circle',{cx,cy:yc,r:9.5,fill:color,stroke:'#fff','stroke-width':2},P); txt(P,cx,yc+5,fa(i-from+1),13,'#fff'); AU.sfx('hop',i-from); i++; },300); }
+
+/* خط عددی ۰ تا ۱ با n قسمت مساوی */
+function lineScene(n,o){
+  const svg=mk('svg',{viewBox:'0 0 360 290'}); svg.classList.add('pt');
+  mk('rect',{x:2,y:2,width:356,height:286,rx:18,fill:'#E3F2FD'},svg);
+  mk('path',{d:'M2 192 H358 V270 Q358 288 340 288 H20 Q2 288 2 270Z',fill:'#C5E1A5'},svg);
+  const G=mk('g',{transform:'translate(0,40)'},svg); svg.__g=G;
+  const strips=[];
+  for(let i=0;i<n;i++) strips.push(mk('rect',{x:xAt(i,n),y:112,width:L/n,height:26,fill:i%2?'#FFE082':'#FFF8E1',stroke:'#6D4C41','stroke-width':2},G));
+  for(let i=0;i<=n;i++){ const e=i===0||i===n; mk('line',{x1:xAt(i,n),x2:xAt(i,n),y1:e?100:106,y2:e?150:146,stroke:e?'#C62828':'#6D4C41','stroke-width':e?4:2.5,'stroke-linecap':'round'},G); }
+  mk('line',{x1:X0+L,x2:350,y1:125,y2:125,stroke:'#6D4C41','stroke-width':3},G); mk('polygon',{points:'352,125 343,119 343,131',fill:'#6D4C41'},G);
+  txt(G,X0,184,o.l0||'۰',26,'#4A148C'); txt(G,X0+L,184,o.l1||'۱',26,'#4A148C');
+  const r={svg,strips,yc:125,n};
+  if(o.arrow!=null){ const x=xAt(o.arrow,n); mk('path',{d:`M${x-8} 36 H${x+8} V74 H${x+16} L${x} 100 L${x-16} 74 H${x-8}Z`,fill:'#EC407A',stroke:'#AD1457','stroke-width':3,'stroke-linejoin':'round'},G); }
+  if(o.snail!=null){ const x=xAt(o.snail,n); const t=txt(G,0,0,'🐌',32,'#000',{'text-anchor':'middle'}); t.setAttribute('transform',`translate(${x},94) scale(-1,1)`);
+    txt(G,X0+L,94,'🏁',30,'#000'); }
+  if(o.flag){ const g=mk('g',{},G); g.style.transition='transform .18s'; g.style.transform=`translate(${X0}px,0)`; g.style.opacity=0;
+    mk('line',{x1:0,x2:0,y1:54,y2:110,stroke:'#5D4037','stroke-width':4,'stroke-linecap':'round'},g);
+    const fl=mk('path',{d:'M0 54 L34 64 L0 76Z',fill:'#E53935',stroke:'#B71C1C','stroke-width':2,'stroke-linejoin':'round'},g);
+    r.flag=g; r.flagShape=fl; }
+  return r;
+}
+/* ================= خط‌کش و اشیا ================= */
+const RN=8, PXCM=L/RN;
+const rx=mm=>X0+L*mm/(RN*10);
+const KN={pencil:'مداد',pen:'خودکار',crayon:'مداد رنگی'};
+const KE={pencil:'✏️',pen:'🖊️',crayon:'🖍️'};
+function objShape(G,kind,x0,xe,y,color){
+  if(kind==='pencil'){
+    mk('rect',{x:x0,y,width:xe-x0-26,height:28,fill:'#FDD835',stroke:'#F57F17','stroke-width':2.5},G);
+    mk('rect',{x:x0,y,width:14,height:28,fill:'#F48FB1',stroke:'#C2185B','stroke-width':2.5},G);
+    mk('rect',{x:x0+14,y,width:8,height:28,fill:'#B0BEC5',stroke:'#78909C','stroke-width':2},G);
+    mk('polygon',{points:`${xe-26},${y} ${xe},${y+14} ${xe-26},${y+28}`,fill:'#FFCC80',stroke:'#E65100','stroke-width':2.5,'stroke-linejoin':'round'},G);
+    mk('polygon',{points:`${xe-9},${y+9} ${xe},${y+14} ${xe-9},${y+19}`,fill:'#37474F'},G);
+  } else if(kind==='pen'){
+    mk('rect',{x:x0,y,width:xe-x0-14,height:28,rx:6,fill:color,stroke:'#1A237E','stroke-width':2.5},G);
+    mk('rect',{x:x0+8,y:y+4,width:26,height:7,rx:3,fill:'#fff',opacity:.55},G);
+    mk('polygon',{points:`${xe-14},${y+3} ${xe},${y+14} ${xe-14},${y+25}`,fill:'#CFD8DC',stroke:'#546E7A','stroke-width':2.5,'stroke-linejoin':'round'},G);
+  } else {
+    mk('rect',{x:x0,y,width:xe-x0-18,height:28,rx:4,fill:color,stroke:'#4A148C','stroke-width':2.5},G);
+    mk('rect',{x:x0+10,y,width:24,height:28,fill:'#fff',opacity:.5},G);
+    mk('polygon',{points:`${xe-18},${y+2} ${xe},${y+14} ${xe-18},${y+26}`,fill:color,stroke:'#4A148C','stroke-width':2.5,'stroke-linejoin':'round'},G);
+  }
+}
+function rulerScene(a,k,kind,color){
+  const svg=mk('svg',{viewBox:'0 0 360 290'});
+  mk('rect',{x:2,y:2,width:356,height:286,rx:18,fill:'#F3E5F5'},svg);
+  const G=mk('g',{transform:'translate(0,40)'},svg); svg.__g=G;
+  const mm=a*10+k, xe=rx(mm), x0=X0;
+  objShape(G,kind,x0,xe,30,color);
+  mk('line',{x1:x0,x2:x0,y1:60,y2:116,stroke:'#4A148C','stroke-width':2.5,'stroke-dasharray':'5 5'},G);
+  mk('line',{x1:xe,x2:xe,y1:60,y2:116,stroke:'#4A148C','stroke-width':2.5,'stroke-dasharray':'5 5'},G);
+  mk('rect',{x:x0-10,y:116,width:L+20,height:56,rx:6,fill:'#FFEB3B',stroke:'#F9A825','stroke-width':3},G);
+  const hl=mk('rect',{x:rx(a*10),y:116,width:PXCM,height:56,fill:'#43A047',opacity:0},G);
+  for(let i=0;i<=RN*10;i++){ const x=rx(i),c=i%10===0,h=c?28:i%5===0?19:11; mk('line',{x1:x,x2:x,y1:116,y2:116+h,stroke:'#5D4037','stroke-width':c?2.6:1.2},G); }
+  for(let c=0;c<=RN;c++) txt(G,rx(c*10),165,fa(c),15,'#4A148C');
+  txt(G,x0+L/2,198,'سانتی‌متر',17,'#7B1FA2');
+  return {svg,hl,xe};
+}
+
+/* ================= گزینه‌ها ================= */
+const GEN=[[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],[1,6],[5,6],[1,8],[3,8],[5,8],[7,8],[1,10],[3,10],[7,10],[9,10]];
+function makeOpts(n,k){
+  const cor=[k,n]; const c=[];
+  const add=(a,b,t)=>{ if(a<1||b<2||a>=b) return; const v=[a,b]; if(same(v,cor)||c.some(x=>same(x.v,v))) return; c.push({v,t}); };
+  add(n-k,n,'comp'); shuffle([[k,n+1,'den'],[k,n-1,'den'],[k+1,n,'off'],[k-1,n,'off']]).forEach(r=>add(...r));
+  const lst=c.slice(0,3);
+  shuffle(GEN).forEach(g=>{ if(lst.length<3&&!same(g,cor)&&!lst.some(x=>same(x.v,g))) lst.push({v:g,t:'other'}); });
+  return shuffle([{v:cor,t:'right'},...lst]);
+}
+const PAL=['#26A69A','#EC407A','#FFA726','#5C6BC0','#66BB6A','#AB47BC','#29B6F6','#EF5350'];
+const PENC=['#1E88E5','#E53935','#43A047','#8E24AA'];
+
+/* ================= ساخت سؤال‌ها (کاملاً تصادفی) ================= */
+function build(){
+  const S=[],used=new Set(); const kinds=['pencil','pen','crayon'];
+  const take=(a0,a1)=>{ let a,k,key,t=0; do{ a=a0+rnd(a1-a0+1); k=1+rnd(9); key=a+'_'+k; t++; }while(used.has(key)&&t<80); used.add(key); return [a,k]; };
+  for(let i=0;i<4;i++){ const [a,k]=take(2,6), kind=pick(kinds), color=kind==='pen'?pick(PENC):pick(PAL); const o={a,k,kind,color};
+    S.push(Object.assign({lv:1,mode:'whole'},o)); S.push(Object.assign({lv:1,mode:'tenth'},o)); }
+  for(let i=0;i<3;i++){ const [a,k]=take(1,7); S.push({lv:2,mode:'place',a,k,n:10}); }
+  const L3=shuffle(['mm2t','t2mm','cmp']);
+  L3.forEach(m=>{
+    if(m==='cmp'){ let a1,k1,a2,k2; const tricky=rnd(2)===0;
+      if(tricky){ a1=2+rnd(4); a2=a1+1+rnd(2); k1=6+rnd(4); k2=1+rnd(4); }   // کوچک‌تر: دهم‌های بزرگ‌تر دارد
+      else { a1=a2=2+rnd(6); k1=1+rnd(9); do{k2=1+rnd(9)}while(k2===k1); }
+      const k=pick(kinds.slice()), k_=pick(['pen','pencil','crayon'].filter(x=>x!==k));
+      let A={a:a1,k:k1,kind:k},B={a:a2,k:k2,kind:k_}; if(rnd(2)) [A,B]=[B,A];
+      S.push({lv:3,mode:'cmp',A,B,tricky});
+    } else { const [a,k]=take(2,7); S.push({lv:3,mode:m,a,k,kind:pick(kinds),color:pick(PAL)}); }
+  });
+  return S;
+}
+
+/* ================= حالت بازی ================= */
+let S,si,score,att,mist,locked,pos;
+const easel=$('#easel'),ctrl=$('#ctrl');
+function show(id){ ['intro','mid','end'].forEach(s=>$('#'+s).classList.toggle('hidden',s!==id)); }
+function startGame(){ S=build(); si=0; score=0; mist={whole:0,comp:0,den:0,off:0,place:0,conv:0,cmp:0}; show('none'); AU.play('l1'); load(); }
+function head(){ const s=S[si];
+  $('#lvl').textContent=['','مرحله ۱ · اندازه بگیر','مرحله ۲ · بگذار','مرحله ۳ · میلی‌متر'][s.lv];
+  $('#cnt').textContent=`سؤال ${fa(si+1)} از ${fa(S.length)}`; $('#prog').style.width=(si/S.length*100)+'%'; }
+function stamp(){ const e=document.createElement('div'); e.className='stamp'; e.textContent=pick(['⭐','🌟','🎉','✨']); e.style.left='calc(50% - 46px)'; e.style.top='30%'; easel.appendChild(e); setTimeout(()=>e.remove(),900); }
+function load(){ locked=false; att=0; pos=null; TOK++; head(); const s=S[si];
+  ({whole:loadWhole,tenth:loadTenth,place:loadPlace,mm2t:loadMM2T,t2mm:loadT2MM,cmp:loadCmp})[s.mode](s); }
+function done(good){ locked=true; if(good){ stamp(); confetti(16); AU.sfx('good'); } setTimeout(advance,good?1600:3300); }
+function advance(){ si++; if(si>=S.length) return finish();
+  if(S[si].lv!==S[si-1].lv){ AU.sfx('level'); const l=S[si].lv; AU.play(l===2?'l2':'l3'); const m=$('#mid');
+    m.innerHTML=l===2?`<h1>مرحله ۲ 🚩</h1><span class="tag">پرچم را بگذار</span><p>بین دو عدد کامل روی خط‌کش، یک سانتی‌متر <b>۱۰ قسمت مساوی</b> دارد. طول نوار را بخوان و پرچم را روی انتهای نوار بگذار.</p><button class="btn" id="g">برویم!</button>`
+      :`<h1>مرحله ۳ 📏</h1><span class="tag">میلی‌متر و دهم</span><p>۱ سانتی‌متر = <b>۱۰ میلی‌متر</b>. پس هر میلی‌متر یک <b>دهم</b> سانتی‌متر است.</p><button class="btn" id="g">برویم!</button>`;
+    show('mid'); $('#g').onclick=()=>{ AU.sfx('click'); show('none'); load(); }; return; }
+  load(); }
+
+/* نتیجه‌ی یک پاسخ */
+function verdict(ok,hint,key,okMsg,reveal,ansMsg){
+  if(locked) return false;
+  if(ok){ if(att===0) score++; say(okMsg,'ok','happy'); reveal&&reveal(); done(true); return true; }
+  att++; AU.sfx('bad'); easel.classList.add('shake'); setTimeout(()=>easel.classList.remove('shake'),460); mist[key]=(mist[key]||0)+1;
+  if(att===1) say('دوباره فکر کن 🙂 '+hint,'bad','think');
+  else { locked=true; say(ansMsg,'','think'); reveal&&reveal(); done(false); }
+  return false; }
+function circleOpts(items,cb){ ctrl.innerHTML=''; items.forEach(it=>{ const b=document.createElement('button'); b.className='opt'; b.innerHTML=it.h; b.onclick=()=>{ if(locked) return; AU.sfx('click'); const r=cb(it,b); if(it.right){ [...ctrl.children].forEach(x=>x.classList.add('off')); b.classList.remove('off'); b.classList.add('glow'); } else b.classList.add('off'); if(locked&&!it.right) [...ctrl.children].forEach((x,i)=>{ if(items[i].right){ x.classList.remove('off'); x.classList.add('glow'); } }); }; ctrl.appendChild(b); }); }
+const FH={comp:'این کسر از آن طرف شمرده شده. از <b>اول</b> قسمت شروع کن و به‌سمت راست بشمار 🔄',
+  den:'مخرج یعنی تعداد قسمت‌های مساوی: بین دو عدد <b>۱۰</b> قسمت است. قسمت‌ها را بشمار، نه خط‌ها را!',
+  off:'دقیق‌تر بشمار! خودِ خط اول یک قسمت نیست.',
+  other:'دوباره بشمار: فلش بعد از چند قسمت (میلی‌متر) از ۱۰ قسمت است؟'};
+
+/* ---------- ۱ الف: سانتی‌متر کامل ---------- */
+function loadWhole(s){
+  easel.innerHTML=''; s.sc=rulerScene(s.a,s.k,s.kind,s.color); easel.appendChild(s.sc.svg);
+  $('#qtext').innerHTML=`${KN[s.kind]} از چند سانتی‌متر <b>کامل</b> بیشتر است؟`;
+  say(`ته ${KN[s.kind]} را ببین. آخرین عدد کاملی که ته از آن رد شده کدام است؟ 📏`,'','think');
+  const first=[s.a+1], rest=shuffle([s.a-1,s.a+2,s.a-2].filter(v=>v>=1&&v<=RN));
+  const ds=first.concat(rest).slice(0,3);
+  const items=shuffle([{h:fa(s.a),right:true,v:s.a},...ds.map(v=>({h:fa(v),v}))]);
+  circleOpts(items,(it)=>verdict(it.right,
+    it.v===s.a+1?'عدد بزرگ‌تر را خواندی. ته هنوز به آن نرسیده! عدد کوچک‌تری که <b>رد شده</b> را بخوان.':'نگاه کن ته به کدام عدد کامل رسیده و از کدام رد شده.',
+    'whole',`درسته! ${KN[s.kind]} از ${fa(s.a)} سانتی‌متر کامل بیشتر است. حالا با ذره‌بین می‌بینیم چقدر اضافه دارد 🔍`,
+    ()=>{ s.sc.hl.setAttribute('opacity',.4); },`جواب: ${fa(s.a)} — ته از ${fa(s.a)} رد شده ولی به ${fa(s.a+1)} نرسیده.`));
+  window.__dbg={s,items};
+}
+/* ---------- ۱ ب: دهم‌ها با ذره‌بین ---------- */
+function fracItems(n,k){ return makeOpts(n,k).map(o=>({h:frac(o.v[0],o.v[1]),right:o.t==='right',t:o.t,v:o.v})); }
+function loadTenth(s){
+  easel.innerHTML=''; s.sc=lineScene(10,{arrow:s.k,l0:fa(s.a),l1:fa(s.a+1)}); easel.appendChild(s.sc.svg);
+  $('#qtext').innerHTML=`ذره‌بین 🔍 ${KN[s.kind]} چه کسری از <b>۱ سانتی‌متر</b> اضافه دارد؟`;
+  say(`بین ${fa(s.a)} و ${fa(s.a+1)} سانتی‌متر ۱۰ قسمت مساوی است. فلش بعد از چند قسمت است؟ 🤔`,'','think');
+  const items=fracItems(10,s.k);
+  circleOpts(items,(it)=>verdict(it.right,FH[it.t]||FH.other,it.t==='comp'?'comp':it.t==='den'?'den':it.t==='off'?'off':'place',
+    `آفرین! ${KN[s.kind]} = ${fa(s.a)} سانتی‌متر و ${frac(s.k,10)} سانتی‌متر، یعنی ${fa(s.a)} سانتی‌متر و ${fa(s.k)} میلی‌متر.`,
+    ()=>mark(s.sc.svg,10,0,s.k,125,'#EC407A'),`جواب: ${frac(s.k,10)} — از ${fa(s.a)} تا فلش ${fa(s.k)} قسمت (میلی‌متر) شمردیم.`));
+  window.__dbg={s,items};
+}
+/* ---------- مرحله ۲: بگذار ---------- */
+function loadPlace(s){
+  easel.innerHTML=''; pos=null;
+  $('#qtext').innerHTML=`نوار <b>${fa(s.a)}</b> سانتی‌متر و <span class="big">${frac(s.k,10)}</span> است. پرچم را روی انتهای نوار بگذار`;
+  s.sc=lineScene(10,{flag:true,l0:fa(s.a),l1:fa(s.a+1)}); easel.appendChild(s.sc.svg);
+  say(`بین ${fa(s.a)} و ${fa(s.a+1)} سانتی‌متر ۱۰ قسمت (میلی‌متر) است. از ${fa(s.a)} شروع کن و ${fa(s.k)} قسمت جلو برو 🚩`,'','think');
+  ctrl.innerHTML=`<button class="btn go" id="chk" disabled>بررسی ✔</button>`; $('#chk').onclick=()=>checkPlace(s);
+  const svg=s.sc.svg; let down=false;
+  const put=i=>{ pos=i; s.sc.flag.style.opacity=1; s.sc.flag.style.transform=`translate(${xAt(i,10)}px,0)`; $('#chk').disabled=false; };
+  const setp=e=>{ if(locked) return; const p=svg.createSVGPoint(); p.x=e.clientX; p.y=e.clientY; const q=p.matrixTransform(svg.getScreenCTM().inverse());
+    const i=Math.max(0,Math.min(10,Math.round((q.x-X0)/(L/10)))); if(i!==pos){ put(i); AU.sfx('place'); } };
+  svg.addEventListener('pointerdown',e=>{ down=true; try{svg.setPointerCapture(e.pointerId)}catch(_){} setp(e); });
+  svg.addEventListener('pointermove',e=>{ if(down) setp(e); });
+  ['pointerup','pointercancel'].forEach(ev=>svg.addEventListener(ev,()=>{ down=false; }));
+  window.__dbg={s,get pos(){return pos},setPos:put};
+}
+function checkPlace(s){ if(locked||pos==null) return; const j=pos;
+  const why=j===10-s.k&&j!==s.k?`انگار از آن طرف شمردی. از ${fa(s.a)} شروع کن و ${fa(s.k)} قسمت به‌سمت راست برو 🔄`:Math.abs(j-s.k)===1?`یک قسمت ${j<s.k?'کم':'زیاد'} رفتی. دقیق بشمار؛ خودِ ${fa(s.a)} یک قدم نیست.`:`پرچمت ${fa(j)} قسمت از ${fa(s.a)} فاصله دارد، ولی ما ${fa(s.k)} قسمت می‌خواهیم.`;
+  verdict(j===s.k,why,j===10-s.k?'comp':Math.abs(j-s.k)===1?'off':'place',
+    `آفرین! 🎉 ${fa(s.a)} سانتی‌متر و ${frac(s.k,10)} سانتی‌متر = ${fa(s.a)} سانتی‌متر و ${fa(s.k)} میلی‌متر.`,
+    ()=>{ pos=s.k; s.sc.flag.style.opacity=1; s.sc.flag.style.transform=`translate(${xAt(s.k,10)}px,0)`; s.sc.flagShape.setAttribute('fill','#43A047'); mark(s.sc.svg,10,0,s.k,125,'#2E7D32'); },
+    `این‌طوری: ${fa(s.k)} قسمت از ${fa(s.a)} جلو می‌رویم → ${frac(s.k,10)}.`); }
+
+/* ---------- مرحله ۳ ---------- */
+function stripScene(k,color){ const sc=lineScene(10,{l0:'۰',l1:'۱۰'}); sc.strips.forEach((r,i)=>{ if(i<k) r.setAttribute('fill',color); }); return sc; }
+function loadMM2T(s){
+  easel.innerHTML=''; s.sc=stripScene(s.k,'#81C784'); easel.appendChild(s.sc.svg);
+  txt(s.sc.svg.__g,X0+L/2,60,'۱ سانتی‌متر = ۱۰ میلی‌متر',17,'#4A148C');
+  $('#qtext').innerHTML=`${KN[s.kind]} ${fa(s.a)} سانتی‌متر و <b>${fa(s.k)} میلی‌متر</b> است. یعنی ${fa(s.a)} سانتی‌متر و چه کسری از ۱ سانتی‌متر؟`;
+  say(`خانه‌های سبز همان ${fa(s.k)} میلی‌متر هستند. از ۱۰ خانه‌ی یک سانتی‌متر چند تا سبز است؟ 🤔`,'','think');
+  const items=fracItems(10,s.k);
+  circleOpts(items,(it)=>verdict(it.right,FH[it.t]||FH.other,it.t==='comp'?'comp':it.t==='den'?'den':it.t==='off'?'off':'conv',
+    `درسته! ${fa(s.k)} میلی‌متر = ${frac(s.k,10)} سانتی‌متر، چون ۱ سانتی‌متر ۱۰ میلی‌متر است.`,null,
+    `جواب: ${frac(s.k,10)} — ${fa(s.k)} خانه‌ی سبز از ${fa(10)} خانه.`));
+  window.__dbg={s,items};
+}
+function loadT2MM(s){
+  easel.innerHTML=''; s.sc=stripScene(0,'#fff'); easel.appendChild(s.sc.svg);
+  txt(s.sc.svg.__g,X0+L/2,60,'هر خانه = ۱ میلی‌متر',17,'#4A148C');
+  $('#qtext').innerHTML=`<span class="big">${frac(s.k,10)}</span> سانتی‌متر چند <b>میلی‌متر</b> است؟`;
+  say(`یک سانتی‌متر ۱۰ قسمت دارد و هر قسمت ۱ میلی‌متر است. ${fa(s.k)} قسمت چند میلی‌متر است؟ 🤔`,'','think');
+  const cand=[s.k*10,10-s.k,s.k+1,s.k-1].filter(v=>v>=1&&v!==s.k&&v<=90);
+  const ds=[...new Set(cand)].slice(0,3); while(ds.length<3){ const v=1+rnd(30); if(v!==s.k&&!ds.includes(v)) ds.push(v); }
+  const items=shuffle([{h:fa(s.k),right:true,v:s.k},...ds.map(v=>({h:fa(v),v}))]);
+  circleOpts(items,(it)=>verdict(it.right,
+    it.v===s.k*10?'۱ سانتی‌متر <b>۱۰</b> میلی‌متر است، نه ۱۰۰. پس هر دهم فقط ۱ میلی‌متر است.':it.v===10-s.k?'این عدد را از آن طرف حساب کردی. هر خانه ۱ میلی‌متر است؛ خانه‌های ما فقط '+fa(s.k)+' تاست.':'هر قسمت از ۱۰ قسمت یک میلی‌متر است. پس '+fa(s.k)+' قسمت چند میلی‌متر می‌شود؟',
+    'conv',`آفرین! ${frac(s.k,10)} سانتی‌متر = ${fa(s.k)} میلی‌متر.`,
+    ()=>{ s.sc.strips.forEach((r,i)=>{ if(i<s.k) r.setAttribute('fill','#81C784'); }); mark(s.sc.svg,10,0,s.k,125,'#2E7D32'); },`جواب: ${fa(s.k)} میلی‌متر — هر قسمت ۱ میلی‌متر است.`));
+  window.__dbg={s,items};
+}
+function loadCmp(s){
+  const {A,B}=s; const len=o=>o.a*10+o.k; const right=len(A)>len(B)?'A':'B';
+  const card=(o,id)=>`<div class="cmpcard" id="c${id}"><div class="em">${KE[o.kind]}</div><div class="nm">${KN[o.kind]}</div><div class="ln">${fa(o.a)} و ${frac(o.k,10)}<br><small>سانتی‌متر</small></div></div>`;
+  easel.innerHTML=`<div class="cmpwrap">${card(A,'A')}${card(B,'B')}</div>`;
+  $('#qtext').innerHTML='کدام <b>بلندتر</b> است؟';
+  say('اول سانتی‌متر کامل را مقایسه کن. اگر مساوی بود، دهم‌ها را مقایسه کن 🤔','','think');
+  ctrl.innerHTML=''; ['A','B'].forEach(id=>{ const o=id==='A'?A:B; const b=document.createElement('button'); b.className='opt wide'; b.textContent=KN[o.kind]+' '+KE[o.kind]; ctrl.appendChild(b);
+    b.onclick=()=>{ if(locked) return; AU.sfx('click'); const ok=id===right;
+      const big=ok?o:(id==='A'?B:A);
+      verdict(ok,s.tricky?`اول عدد <b>کامل</b> را ببین! ${fa(Math.min(A.a,B.a))} از ${fa(Math.max(A.a,B.a))} کمتر است، پس دهم‌ها مهم نیست.`:`عدد کامل هر دو یکی است. دهم‌ها را مقایسه کن: ${fa(Math.max(A.k,B.k))} دهم از ${fa(Math.min(A.k,B.k))} دهم بیشتر است.`,
+        'cmp',`درسته! ${KN[big.kind]} بلندتر است: ${fa(big.a)} سانتی‌متر و ${fa(big.k)} میلی‌متر.`,
+        ()=>{ const w=right; $('#c'+w).classList.add('win'); [...ctrl.children].forEach((x,i)=>{ if(['A','B'][i]===w) x.classList.add('glow'); else x.classList.add('off'); }); },
+        `جواب: ${KN[(right==='A'?A:B).kind]} بلندتر است.`); if(!ok) b.classList.add('off'); }; });
+  window.__dbg={s,right};
+}
+
+/* ---------- پایان ---------- */
+function finish(){ AU.play('end'); AU.sfx('win'); confetti(50); $('#prog').style.width='100%';
+  const st=score>=12?3:score>=8?2:1;
+  const top=Object.entries(mist).sort((a,b)=>b[1]-a[1])[0];
+  const tip=top&&top[1]>0?{whole:'عدد کاملی را بخوان که ته از آن <b>رد شده</b>، نه عدد بعدی.',comp:'قسمت‌ها را از اول (عدد کوچک‌تر) بشمار.',den:'بین دو عدد کامل ۱۰ قسمت است. قسمت‌ها را بشمار، نه خط‌ها را.',off:'خودِ خط اول یک قسمت نیست؛ دقیق بشمار.',place:'بشمار: کسر چند قسمت جلو رفته؟',conv:'۱ سانتی‌متر = ۱۰ میلی‌متر؛ هر میلی‌متر = یک دهم.',cmp:'اول عدد کامل را مقایسه کن، بعد دهم‌ها را.'}[top[0]]:'';
+  $('#end').innerHTML=`<h1>آفرین! 🏆</h1><div class="stars">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div><span class="tag">${fa(score)} سؤال درست در تلاش اول از ${fa(S.length)}</span>
+   <p><b>یادآوری:</b> ۱ سانتی‌متر = ۱۰ میلی‌متر.<br>هر میلی‌متر = ${frac(1,10)} سانتی‌متر · طول = سانتی‌متر کامل + دهم‌ها${tip?'<br><br>'+tip:''}</p>
+   <button class="btn" id="again" style="font-size:22px;padding:11px 40px">دوباره بازی کن</button>
+   <p style="font-size:15px">Instagram: <span dir="ltr">@zohreh_falahpour</span></p>`;
+  show('end'); $('#again').onclick=()=>{ AU.sfx('click'); startGame(); }; }
+function confetti(n){ const cols=['#FFD54F','#EC407A','#26A69A','#29B6F6','#AB47BC'];
+  for(let i=0;i<n;i++){ const d=document.createElement('div'); d.className='conf'; d.style.left=Math.random()*100+'vw'; d.style.background=pick(cols); document.body.appendChild(d);
+    d.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:`translateY(${innerHeight+40}px) rotate(${360+rnd(360)}deg)`,opacity:.8}],{duration:1400+rnd(900),easing:'ease-in'}).onfinish=()=>d.remove(); } }
+$('#start').onclick=()=>{ AU.unlock(); AU.sfx('click'); startGame(); };
+document.addEventListener('pointerup',()=>{ if(AU.ctx&&!AU.timer) AU.play('menu'); },{once:true});
+</script>
+</body>
+</html>
